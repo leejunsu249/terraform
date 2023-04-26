@@ -1,0 +1,228 @@
+#- setup variable for cluster installation
+
+########################################################
+## Master configuation
+########################################################
+# cluster_name
+cluster_name: "host-cluster"
+# master isolation ( yes / no ) 
+master_isolation: "yes"
+master_host_name: "acc-master1"
+master_ip: ${master_ip[0]} 
+
+%{ if (guest_id == "rhel8_64Guest") || (guest_id == "centos7_64Guest" || (guest_id == "other4xLinux64Guest")) ~}
+acc_interface: ens192
+%{ else ~}
+acc_interface: ens160
+%{ endif ~}
+########################################################
+# 3master mode( yes / no )
+########################################################
+%{ if length(master_ip) > 1 || single_option ~}
+master_mode: "yes"
+%{ if single_option ~}
+single_option: "yes"
+%{ else ~}
+single_option: "no"
+%{ endif ~}
+master2_ip: ${master_ip[1]} 
+master3_ip: ${master_ip[2]}
+master2_hostname: "acc-master2"
+master3_hostname: "acc-master3"
+# L4_mode ( L4 / haproxy )
+L4_mode: "haproxy"
+haproxy_port: 8443
+keep_vip: 10.60.200.123
+%{ else ~}
+master_mode: "no"
+master2_ip: 10.60.200.141
+master3_ip: 10.60.200.142
+master2_hostname: "acc-master2"
+master3_hostname: "acc-master3"
+# L4_mode ( L4 / haproxy )
+L4_mode: "haproxy"
+haproxy_port: 8443
+keep_vip: 10.60.200.125
+single_option: "no"
+%{ endif ~}
+
+########################################################
+## container_name (containerd & cri-o)
+########################################################
+container_option: "cri-o"
+
+# container_option (containerd)
+selinux_enable: "no"
+
+# container_option (cri-o)
+pid_limit: "4096"
+
+########################################################
+# storage setting
+########################################################
+# storage_option ( nfs / ceph )
+storage_option: "nfs"
+
+# nfs_setup ( internal / external )
+nfs_setup: "external"
+nfs_server_ip: 10.10.0.84 
+accordion_nfs_path: "/volume2/jslee2/${nas}"
+
+# nfs_version ( v3 / v4 )
+nfs_version: "v3"
+
+# ceph_option ( cephfs / rbd )
+ceph_option: "cephfs"
+
+#ceph health, ceph fsid, ceph auth get-key client.admin, ceph status
+ceph_server_ip: "10.20.200.107"
+ceph_server_port: "6789"
+ceph_id: "admin"
+ceph_key: "AQCKoqVh0eR5MxAAL4WziV7oyVsdtHC6Wz0RcQ=="
+#ceph_id: "kubernetes"
+#ceph_key: "AQBDpKVhFhPCIRAAf1xqSLgi558DIH+FvcCyMQ=="
+ceph_fsid: "84ab6f51-d13e-4a83-9ccc-fd3b9228e728"
+ceph_fsname: "cephfs"
+#ceph_fsname: "cephrbd_pool"
+
+########################################################
+# etcd external option
+########################################################
+etcd_external: "no"
+
+########################################################
+# base registry
+########################################################
+# accordion_registry_option ( local / external )
+base_registry_option: "local"
+base_registry_address: ${master_ip[0]}
+#base_registry_address: 10.60.200.94
+base_registry_port: 5000
+base_registry_id: accregistry
+base_registry_passwd: accordionadmin
+
+########################################################
+# user registry
+########################################################
+# registry_option ( registry / harbor)
+user_registry_option: "harbor"
+#user_registry_address: 10.60.200.113
+user_registry_address: ${master_ip[0]}
+user_registry_port: 30001
+
+# registry_external ( yes / no )
+user_registry_external: "no"
+
+# user_registry_external: "yes"
+user_registry_id: admin
+#user_registry_pw: g3UnYxEgQO0XYRkV
+user_registry_pw: accordion123
+
+# registry information
+htpasswd_option: "yes"
+
+#######################################################
+# registry domain option
+########################################################
+# registry_domain_option ( yes / no )
+registry_domain_option: "${registry_domain_option}"
+base_registry_domain_address: "base.registry.accordions.co.kr"
+user_registry_domain_address: "user.registry.accordions.co.kr"
+
+# hosts_setting( yes / no ) 
+# If the value 'host_setting' is yes, the domain is added to /etc/hosts 
+# (Not working if 'registry_domain_option' is no)
+hosts_setting: "yes"
+
+########################################################
+# Network Setting
+########################################################
+# CNI (calico or cilium)
+network_cni: "calico"
+
+# podman Network
+podman_cidr: "${podman_cidr}"
+
+# Pod Network (calico)
+pod_network_cidr: "${pod_network_cidr}"
+# Calico Mode (IPIP & vxlan)
+calico_backend: "${calico_backend}"
+
+# Calico ippool(CrossSubnet & Always)
+calico_ippool: "${calico_ippool}"
+
+# Calico autodetection mode( interface / cidr )
+# If the option is 'interface', it follows the value set in acc_interface.
+calico_autodetection_mode: "${calico_autodetection_mode}"
+# If the option is 'cidr', set the value 'interface_cidr' to OS interface cidr.
+interface_cidr: "${interface_cidr}"
+
+# Pod Network (cilium)
+# kube_proxy_replacement: "disabled"
+# cilium_tunnel: "disable"
+# auto_direct_node_routes: "true"
+# ipv4_native_routing_cidr: 10.60.200.0/24
+# cilium_ipam: "cluster-pool"
+# ciliium_cluster_pool_ipv4_cidr: "172.32.0.0/16"
+# cilium_cluster_pool_ipv4_mask_size: "24"
+# dsr_mode: "no"
+
+# kubernetes Service Network
+service_cidr: "${service_cidr}"
+kubelet_clusterdns: "${kubelet_clusterdns}"
+kubernetes_clusterip: "${kubernetes_clusterip}"
+
+# proxy_mode( iptables / ipvs )
+proxy_mode: "${proxy_mode}"
+# iptables_install( yes / no )
+iptables_install: "no"
+
+########################################################
+## container dir
+########################################################
+containerd_root_dir: /var/lib/containerd
+containers_storage_runroot: /var/run/containers
+containers_storage_volume: /var/lib/containers
+
+########################################################
+## Kubernetes dir
+########################################################
+kubelet_root_dir: /var/lib/kubelet
+kube_addon_dir: /etc/kubernetes/addon
+docker_rpm_dir: /tmp
+
+########################################################
+# If the external IP is set up on the master server, enter the IP.
+########################################################
+master_external_ip: "127.0.0.1"
+
+########################################################
+## Add node option (yes / no)
+########################################################
+noschedule: "no"
+
+##########################################
+## accordion GPU monitoring(yes/no)
+##########################################
+gpu_server: "no"
+
+##########################################
+## external prometheus
+##########################################
+external_prometheus: "no"
+prometheus_name: "prometheus-operator-prometheus"
+prometheus_ns: "acc-system"
+
+##########################################
+# vm provisioning
+##########################################
+# Enable only when using accordion provisioning
+# uuid_enable (yes/no)
+uuid_enable: "no"
+# vm_type (vsphere/openstack)
+vm_type: vsphere
+
+##########################################
+# addon package
+##########################################
+metallb_install: "no"

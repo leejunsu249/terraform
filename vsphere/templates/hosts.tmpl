@@ -1,0 +1,226 @@
+install-server  ansible_host=127.0.0.1     ansible_connection=local   node_role=infra
+
+#########################################################################################
+# host-cluster List
+#########################################################################################
+%{ for index,ip in  master_ip ~}
+acc-host-master${index+1}   ansible_host=${ip}    ansible_connection=ssh   node_role=infra
+%{ endfor ~}
+%{ for index,ip in node_ip ~}
+acc-host-node${index+1}    ansible_host=${ip}    ansible_connection=ssh     node_role=infra
+%{ endfor ~}
+#########################################################################################
+# member-cluster List
+#########################################################################################
+%{ for index,ip in  master_ip_member ~}
+acc-member-master${index+1}   ansible_host=${ip}    ansible_connection=ssh   node_role=infra
+%{ endfor ~}
+%{ for index,ip in node_ip_member ~}
+acc-member-node${index+1}    ansible_host=${ip}    ansible_connection=ssh     node_role=infra
+%{ endfor ~}
+
+#########################################################################################
+# Group List 
+#########################################################################################
+[local]
+install-server
+
+#########################################################################################
+# Manager Group
+
+[host-master]
+acc-host-master1
+
+[host-master-cluster]
+%{ if length(master_ip) > 1 ~}
+%{ if !single_option || add_master ~}
+%{ for index,ip in  master_ip ~}
+%{ if index > 0 ~}
+acc-host-master${index+1}
+%{ endif ~}
+%{ endfor ~}
+%{ endif ~}
+%{ endif ~}
+
+[host-minions]
+%{ for index,ip in node_ip ~}
+acc-host-node${index+1}
+%{ endfor ~}
+
+
+[host-infra]
+
+[host-etcd]
+
+#########################################################################################
+# Member Group
+
+[member-master]
+%{ if length(master_ip_member) > 0 ~}
+acc-member-master1
+%{ endif ~}
+
+[member-master-cluster]
+%{ if length(master_ip_member) > 1 ~}
+%{ for index,ip in  master_ip_member ~}
+%{ if index > 0 ~}
+acc-member-master${index+1}
+%{ endif ~}
+%{ endfor ~}
+%{ endif ~}
+
+[member-minions]
+%{ if length(node_ip_member) > 0 ~}
+%{ for index,ip in node_ip_member ~}
+acc-member-node${index+1}
+%{ endfor ~}
+%{ endif ~}
+
+[member-infra]
+
+[member-etcd]
+
+#########################################################################################
+[eks]
+
+
+[aks]
+
+
+[config]
+
+
+#########################################################################################
+[host-cluster:children]
+host-master
+host-master-cluster
+host-minions
+host-infra
+
+[member-cluster:children]
+member-master
+member-master-cluster
+member-minions
+member-infra
+
+[manager-master:children]
+host-master
+
+[manager-master-cluster:children]
+host-master-cluster
+
+[manager-minions:children]
+host-minions
+
+[manager-cluster:children]
+host-cluster
+
+[manager-infra:children]
+host-infra
+
+[manager-etcd:children]
+host-etcd
+
+[manager:children]
+manager-master
+manager-master-cluster
+manager-minions
+manager-cluster
+manager-infra
+
+[host:children]
+manager
+
+[member:children]
+member-master
+member-master-cluster
+member-minions
+member-cluster
+member-infra
+
+[master:children]
+manager-master
+member-master
+
+[master-cluster:children]
+manager-master-cluster
+member-master-cluster
+
+[minions:children]
+manager-minions
+member-minions
+
+[cluster:children]
+manager-cluster
+member-cluster
+
+[infra:children]
+manager-infra
+member-infra
+
+[etcd:children]
+manager-etcd
+member-etcd
+
+[etcd-master-manager:children]
+manager-master
+manager-etcd
+
+[etcd-master-member:children]
+member-master
+member-etcd
+
+[etcd-master-cluster-manager:children]
+manager-master
+manager-master-cluster
+manager-etcd
+
+[etcd-master-cluster-member:children]
+member-master
+member-master-cluster
+member-etcd
+
+[etcd-master:children]
+manager-master
+member-master
+manager-minions
+member-minions
+manager-infra
+member-infra
+manager-etcd
+member-etcd
+
+[etcd-member:children]
+member-master
+member-minions
+member-infra
+member-etcd
+
+[etcd-member-cluster:children]
+member-master
+member-master-cluster
+member-minions
+member-infra
+member-etcd
+
+[etcd-master-cluster:children]
+manager-master
+member-master
+manager-master-cluster
+member-master-cluster
+manager-minions
+member-minions
+manager-infra
+member-infra
+manager-etcd
+member-etcd
+
+[all:vars]
+ansible_ssh_port=22
+ansible_user=root
+ansible_group=root
+ansible_password_option=no
+#ansible_ssh_pass=ROOT_PASSWORD
+keyfile_option=no
+#ansible_ssh_private_key_file=/mantech/accordion.pem
+#ansible_ssh_common_args=-oPubkeyAuthentication=yes

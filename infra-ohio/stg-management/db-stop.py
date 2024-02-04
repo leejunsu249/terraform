@@ -1,0 +1,23 @@
+import json
+import boto3
+
+regions = ['us-east-2','ap-northeast-2']
+for region in regions:
+    rds_session = boto3.client('rds',region_name=region)
+
+
+    response = rds_session.describe_db_clusters()
+
+    for db_instance in response.get('DBClusters'):
+        status = db_instance.get('Status')
+        if 'available' ==  status:
+            db_cluster_identifier = db_instance.get('DBClusterIdentifier')
+            try:
+                response = rds_session.stop_db_cluster(DBClusterIdentifier=db_cluster_identifier)
+                print(f"Stop RDS instance {db_cluster_identifier}...")
+            except Exception as e:
+                print(f"An error occurred: {str(e)}")
+        else:
+            print("정지 가능한 RDS가 없습니다.")
+
+

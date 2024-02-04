@@ -1,0 +1,364 @@
+default:
+  image: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/gitlab-runner-image-aws-sdk:1.0
+
+variables:
+  AWS_ROLE_SESSION_NAME: "gitlab-$CI_PIPELINE_ID-$CI_JOB_NAME"
+
+include:
+  - project: 'common/gitlab-script'
+    ref: v2.6
+    file: '/template/.before-script-template.yml'
+  - project: 'common/gitlab-script'
+    ref: v2.6
+    file: '/template/.infra-workflow-script-template.yml'
+
+stages:          
+  - install
+  - install-prd
+
+nginx-ingress-install:      
+  stage: install
+  tags: 
+    - shared
+  environment:
+    name: $ENV
+  extends:
+    - .aws-assume-template
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name $EKS_CLUSTER
+    - cd nginx-ingress
+    - kubectl apply -f deploy.yaml -n ingress-nginx
+    - cd ../nginx-ingress-backoffice
+    - kubectl apply -f deploy.yaml -n ingress-nginx-backoffice
+  resource_group: $ENV-nginx-ingress
+  rules:
+    - changes:
+        - nginx-ingress/*
+        - nginx-ingress-backoffice/*
+
+nginx-ingress-install-prd:
+  stage: install-prd
+  tags:
+    - shared
+  variables:
+    ENV: prd
+  environment:
+    name: $ENV
+  when: manual
+  extends:
+    - .aws-assume-template
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name $EKS_CLUSTER
+    - cd nginx-ingress
+    - kubectl apply -f deploy.yaml -n ingress-nginx
+    - cd ../nginx-ingress-backoffice
+    - kubectl apply -f deploy.yaml -n ingress-nginx-backoffice
+  resource_group: $ENV-nginx-ingress
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - nginx-ingress/*
+        - nginx-ingress-backoffice/*
+
+cluster-autoscaler-install:
+  stage: install
+  tags:
+    - shared
+  environment:
+    name: $ENV
+  extends:
+    - .aws-assume-template
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name $EKS_CLUSTER
+    - cd cluster-autoscaler
+    - sed -i -e s#AWS_ACCOUNT_NUMBER#${AWS_ACCOUNT_NUMBER}#g cluster-autoscaler-autodiscover.yaml
+    - sed -i -e s#DEPLOY_ENV#${ENV}#g cluster-autoscaler-autodiscover.yaml
+    - kubectl apply -f cluster-autoscaler-autodiscover.yaml
+  resource_group: $ENV-cluster-autoscaler
+  rules:
+    - changes:
+        - cluster-autoscaler/*
+
+cluster-autoscaler-install-prd:
+  stage: install-prd
+  tags:
+    - shared
+  variables:
+    ENV: prd
+  environment:
+    name: $ENV
+  when: manual
+  extends:
+    - .aws-assume-template
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name $EKS_CLUSTER
+    - cd cluster-autoscaler
+    - sed -i -e s#AWS_ACCOUNT_NUMBER#${AWS_ACCOUNT_NUMBER}#g cluster-autoscaler-autodiscover.yaml
+    - sed -i -e s#DEPLOY_ENV#${ENV}#g cluster-autoscaler-autodiscover.yaml
+    - kubectl apply -f cluster-autoscaler-autodiscover.yaml
+  resource_group: $ENV-cluster-autoscaler
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - cluster-autoscaler/*
+
+external-dns:
+  stage: install
+  tags:
+    - shared
+  environment:
+    name: $ENV
+  extends:
+    - .aws-assume-template
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name $EKS_CLUSTER
+    - cd external-dns
+    - sed -i -e s#AWS_ACCOUNT_NUMBER#${AWS_ACCOUNT_NUMBER}#g install.yaml
+    - sed -i -e s#ENV#${ENV}#g install.yaml
+    - sed -i -e s#HOST_ZONE_ID#${HOST_ZONE_ID}#g install.yaml
+    - sed -i -e s#EXT_DNS_POL#${EXT_DNS_POL}#g install.yaml
+    - kubectl apply -f namespace.yaml
+    - kubectl apply -f install.yaml -n external-dns
+    - >-
+      if [ $ENV == "dev" ]; then
+        kubectl apply -f install-feature.yaml -n external-dns
+      fi
+  resource_group: $ENV-external-dns
+  rules:
+    - changes:
+        - external-dns/*
+
+external-dns-prd:
+  stage: install-prd
+  tags:
+    - shared
+  variables:
+    ENV: prd
+  environment:
+    name: $ENV
+  when: manual
+  extends:
+    - .aws-assume-template
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name $EKS_CLUSTER
+    - cd external-dns
+    - sed -i -e s#AWS_ACCOUNT_NUMBER#${AWS_ACCOUNT_NUMBER}#g install.yaml
+    - sed -i -e s#ENV#${ENV}#g install.yaml
+    - sed -i -e s#HOST_ZONE_ID#${HOST_ZONE_ID}#g install.yaml
+    - sed -i -e s#EXT_DNS_POL#${EXT_DNS_POL}#g install.yaml
+    - kubectl apply -f namespace.yaml
+    - kubectl apply -f install.yaml -n external-dns
+  resource_group: $ENV-external-dns
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - external-dns/*
+
+fluentbit-install:
+  stage: install
+  tags:
+    - shared
+  environment:
+    name: $ENV
+  extends:
+    - .aws-assume-template
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name $EKS_CLUSTER
+    - cd cloudwatch-fluentbit
+    - kubectl apply -f cloudwatch-namespace.yaml
+    - ./cloudwatch-configmap.sh
+    - kubectl apply -f fluent-bit-config.yaml
+    - sed -i -e s#AWS_ACCOUNT_NUMBER#${AWS_ACCOUNT_NUMBER}#g fluent-bit.yaml
+    - kubectl apply -f fluent-bit.yaml
+  resource_group: $ENV-fluentbit-install
+  rules:
+    - changes:
+        - cloudwatch-fluentbit/*
+
+fluentbit-install-prd:
+  stage: install-prd
+  tags:
+    - shared
+  variables:
+    ENV: prd
+  environment:
+    name: $ENV
+  when: manual
+  extends:
+    - .aws-assume-template
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name $EKS_CLUSTER
+    - cd cloudwatch-fluentbit
+    - kubectl apply -f cloudwatch-namespace.yaml
+    - ./cloudwatch-configmap.sh
+    - kubectl apply -f fluent-bit-config-prd.yaml
+    - sed -i -e s#AWS_ACCOUNT_NUMBER#${AWS_ACCOUNT_NUMBER}#g fluent-bit.yaml
+    - kubectl apply -f fluent-bit.yaml
+    - sed -i -e s#AWS_REGION#${AWS_REGION}#g cloudwatch-agent.yaml
+    - sed -i -e s#AWS_ACCOUNT_NUMBER#${AWS_ACCOUNT_NUMBER}#g cloudwatch-agent.yaml
+    - kubectl apply -f cloudwatch-agent.yaml
+  resource_group: $ENV-fluentbit-install
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - cloudwatch-fluentbit/*
+
+metric-install:
+  stage: install
+  tags:
+    - shared
+  environment:
+    name: $ENV
+  extends:
+    - .aws-assume-template
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name $EKS_CLUSTER
+    - cd metric
+    - kubectl apply -f components.yaml
+  resource_group: $ENV-metirc
+  rules:
+    - changes:
+        - metric/*
+
+metric-install-prd:
+  stage: install-prd
+  tags:
+    - shared
+  variables:
+    ENV: prd
+  environment:
+    name: $ENV
+  when: manual
+  extends:
+    - .aws-assume-template
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name $EKS_CLUSTER
+    - cd metric
+    - kubectl apply -f components.yaml
+  resource_group: $ENV-metirc
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - metric/*
+
+dump-collector-install:
+  stage: install
+  tags:
+    - shared
+  environment:
+    name: $ENV
+  extends:
+    - .aws-assume-template
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name $EKS_CLUSTER
+    - cd dump-collector
+    - sed -i -e s#AWS_ACCOUNT_NUMBER#${AWS_ACCOUNT_NUMBER}#g daemonset.yaml
+    - sed -i -e s#DEPLOY_ENV#${ENV}#g daemonset.yaml
+    - kubectl apply -f daemonset.yaml -n dump-collector
+  resource_group: $ENV-dump-collector
+  rules:
+    - changes:
+        - dump-collector/*
+
+dump-collector-install-prd:
+  stage: install-prd
+  tags:
+    - shared
+  variables:
+    ENV: prd
+  environment:
+    name: $ENV
+  when: manual
+  extends:
+    - .aws-assume-template
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name $EKS_CLUSTER
+    - cd dump-collector
+    - sed -i -e s#AWS_ACCOUNT_NUMBER#${AWS_ACCOUNT_NUMBER}#g daemonset.yaml
+    - sed -i -e s#DEPLOY_ENV#${ENV}#g daemonset.yaml
+    - kubectl apply -f daemonset.yaml -n dump-collector
+  resource_group: $ENV-dump-collector
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - dump-collector/*
+
+secret-store-csi-driver-install:
+  stage: install
+  tags: 
+    - shared
+  environment:
+    name: $ENV
+  extends:
+    - .aws-assume-template
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name $EKS_CLUSTER
+    - cd secrets-store-csi-driver
+    - helm upgrade --install csi-secrets-store -n kube-system ./
+    - kubectl apply -f aws-provider-installer.yaml -n kube-system
+  resource_group: $ENV-secrets-store-csi-driver
+  rules:
+  - changes:
+      - secrets-store-csi-driver/*
+
+secret-store-csi-driver-install-prd:
+  stage: install-prd
+  tags: 
+    - shared
+  variables:
+    ENV: prd
+  environment:
+    name: $ENV
+  when: manual
+  extends:
+    - .aws-assume-template
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name $EKS_CLUSTER
+    - cd secrets-store-csi-driver
+    - helm upgrade --install csi-secrets-store -n kube-system ./
+    - kubectl apply -f aws-provider-installer.yaml -n kube-system
+  resource_group: $ENV-secrets-store-csi-driver
+  rules:
+  - if: $CI_COMMIT_BRANCH == "master" 
+    changes:
+      - secrets-store-csi-driver/*
+
+calico-install:
+  stage: install
+  tags:
+    - shared
+  environment:
+    name: $ENV
+  extends:
+    - .aws-assume-template
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name $EKS_CLUSTER
+    - cd calico
+    - kubectl apply -f calico-crs.yaml -n tigera-operator
+    - kubectl apply -f calico-operator.yaml -n tigera-operator
+  resource_group: $ENV-calico
+  rules:
+    - changes:
+        - calico/*
+
+calico-install-prd:
+  stage: install-prd
+  tags:
+    - shared
+  variables:
+    ENV: prd
+  environment:
+    name: $ENV
+  when: manual
+  extends:
+    - .aws-assume-template
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name $EKS_CLUSTER
+    - cd calico
+    - kubectl apply -f calico-operator.yaml -n tigera-operator
+    - kubectl apply -f calico-crs.yaml -n tigera-operator
+  resource_group: $ENV-calico
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - calico/*

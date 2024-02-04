@@ -1,0 +1,126 @@
+# Default values for mi-be.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+image:
+  name: {IMAGE_NAME} # gitlab ci job eks-deploy 단계에서 helm-values.sh 에서 update
+  pullPolicy: IfNotPresent
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: {SYSTEM_NAME} # ex "notification"
+revisionHistoryLimit: 2
+envs:
+  - name: schema
+    value: ${SYSTEM_NAME}
+  - name: swagger_host
+    value: https://${DOMAIN}
+  - name: mysql_password
+    valueFrom:
+      secretKeyRef:
+        name: {SYSTEM_NAME}-secret
+        key: mysql_pw
+  - name: mysql_endpoint
+    valueFrom:
+      secretKeyRef:
+        name: {SYSTEM_NAME}-pms
+        key: mysql_writer_endpoint
+  - name: redis_endpoint
+    valueFrom:
+      secretKeyRef:
+        name: {SYSTEM_NAME}-pms
+        key: redis_writer_endpoint
+  - name: mysql_user
+    value: {DB_USER} # db user 정보, 생성 후에 입력
+  - name: spring_profiles_active
+    value: feature
+envVariablesFromSecrets:
+  - secretKey: mysql_pw
+    remoteRef:
+      key: {SECRET_MANAGER_NAME} # secret_manager 에 입력된 password
+envVariablesFromParams:
+  - secretKey: mysql_writer_endpoint
+    remoteRef:
+      key: wirter_endpoint
+  - secretKey: mysql_reader_endpoint
+    remoteRef:
+      key: reader_endpoint
+  - secretKey: redis_writer_endpoint
+    remoteRef:
+      key: redis_endpoint
+      property: writer_endpoint
+  - secretKey: redis_reader_endpoint
+    remoteRef:
+      key: redis_endpoint
+      property: reader_endpoint
+#### serviceaccount.yaml ####
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations:
+    eks.amazonaws.com/role-arn: {IAMRole} # application-account-infra 에서 생성한 iam role arn 입력
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: {SYSTEM_NAME}
+#### serviceAccountSecret.yaml ####
+serviceAccountSecret:
+  create: true
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::385866877617:role/external-secret-role
+  name:
+#### _helpers.tpl ####
+name:
+# podSecurityContext: {}
+#   # fsGroup: 2000
+
+# securityContext: {}
+#   # capabilities:
+#   #   drop:
+#   #   - ALL
+#   # readOnlyRootFilesystem: true
+#   # runAsNonRoot: true
+#   # runAsUser: 1000
+service:
+  type: ClusterIP
+  port: 4600
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx-argo
+    external-dns.alpha.kubernetes.io/hostname: {DOMAIN_NAME}
+  hosts:
+    - host: {DOMAIN_NAME}
+  tls: []
+resources:
+  # We usually recommend not to specify default resources and to  leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 500m
+    memory: 1024Mi
+  requests:
+    cpu: 500m
+    memory: 1024Mi
+nodeSelector:
+  System: market
+tolerations: []
+affinity: {}
+pdbMinAvailable:
+#### hpa.yaml ####
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 1
+  targetCPUUtilizationPercentage: 90
+  # targetMemoryUtilizationPercentage: 80
+livenessProbe:
+  httpGet:
+    path: /health
+    port: http
+  initialDelaySeconds: 60
+readinessProbe:
+  httpGet:
+    path: /health
+    port: http
+  initialDelaySeconds: 60

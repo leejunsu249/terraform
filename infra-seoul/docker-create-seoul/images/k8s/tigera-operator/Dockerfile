@@ -1,0 +1,1 @@
+FROM quay.io/tigera/operator:v1.20.1

@@ -1,0 +1,27 @@
+workflow:
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop" && $CI_PIPELINE_SOURCE == "merge_request_event" 
+      variables:
+        ENV: "dev" 
+        IS_FEATURE: "true"
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "stage" && $CI_PIPELINE_SOURCE == "merge_request_event" 
+      variables:
+        ENV: "stg" 
+        IS_FEATURE: "true"     
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master" && $CI_PIPELINE_SOURCE == "merge_request_event" 
+      variables:
+        ENV: "prd" 
+        IS_FEATURE: "true"  
+    - if: $CI_COMMIT_REF_NAME == "develop" && $CI_PIPELINE_SOURCE != "merge_request_event" # develop branch / dev deploy
+      variables:
+        ENV: "dev" 
+        IS_FEATURE: "false"
+    - if: $CI_COMMIT_REF_NAME == "stage" && $CI_PIPELINE_SOURCE != "merge_request_event" # stage branch / stg deploy
+      variables:
+        ENV: "stg"
+        IS_FEATURE: "false"     
+    - if: $CI_COMMIT_REF_NAME == "master" && $CI_PIPELINE_SOURCE != "merge_request_event" # master branch / alpha prd deploy
+      variables:
+        ENV: "prd"
+        IS_FEATURE: "false"
+

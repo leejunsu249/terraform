@@ -1,0 +1,87 @@
+.aws-assume-template:
+  before_script:
+    - ASSUME_ROLE_CREDENTIALS=$(aws sts assume-role --role-arn $AWS_ASSUME_ROLE_ARN --role-session-name ${AWS_ROLE_SESSION_NAME})
+    - export AWS_ACCESS_KEY_ID=$(echo $ASSUME_ROLE_CREDENTIALS | jq .Credentials.AccessKeyId | sed 's/"//g' )
+    - export AWS_SECRET_ACCESS_KEY=$(echo $ASSUME_ROLE_CREDENTIALS | jq .Credentials.SecretAccessKey | sed 's/"//g' )
+    - export AWS_SESSION_TOKEN=$(echo $ASSUME_ROLE_CREDENTIALS | jq .Credentials.SessionToken | sed 's/"//g' )
+    - aws sts get-caller-identity
+
+.get-branch:
+  before_script:
+    - BRANCH=$(echo $CI_COMMIT_REF_NAME | cut -d\/ -f2 | cut -d\- -f1-2 | cut -d\_ -f1 | tr '[:upper:]' '[:lower:]' | sed 's/-//g ; s/_//g')
+    - SCHEMA="${BRANCH}"
+    - >-
+      if [[ ! -z "$PRD_TAG" ]]; then 
+        PRD_TAG=$(echo $PRD_TAG | grep -o '[0-9]' | xargs echo | sed 's/ //g')
+      fi
+    - >-
+      LOWER_PJT_NAME=$(echo "$CI_PROJECT_NAME" | tr '[:upper:]' '[:lower:]');
+      echo $LOWER_PJT_NAME;
+    - >-
+      if [[ "$CI_PIPELINE_SOURCE" == "merge_request_event" ]]; then 
+        BRANCH="mr${CI_MERGE_REQUEST_IID}"
+        SYSTEM_NAME="${SYSTEM_NAME}-${BRANCH}"
+        SCHEMA="${BRANCH}"
+
+        FULL_DOMAIN="${BRANCH}-${DOMAIN}.feature.${ROOT_DOMAIN}"
+        MGMT_DOMAIN="${BRANCH}-${DOMAIN}.mgmt.feature.${ROOT_DOMAIN}"
+
+        if [[ "$AWS_REGION" == "ap-northeast-2" ]]; then
+          FULL_DOMAIN="${BRANCH}-${DOMAIN}.an2-feature.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="${BRANCH}-${DOMAIN}.mgmt.an2.feature.${ROOT_DOMAIN}";
+        fi
+
+        IMAGE="${AWS_ACCOUNT_NUMBER}.dkr.ecr.us-east-2.amazonaws.com/feature-image:${SYSTEM_NAME}-${STATUS}";
+      elif [[ "$ENV" == "prd" ]] || [[ "$ENV" == "nprd" ]]; then
+        FULL_DOMAIN="${DOMAIN}.${ROOT_DOMAIN}";
+
+        if [[ "$CI_PROJECT_NAME" == "be-batch" ]] || [[ "$CI_PROJECT_NAME" == "alpha-be-batch" ]]; then
+          PRD_TAG="latest"
+        fi 
+
+        MGMT_DOMAIN="${DOMAIN}.mgmt.${ENV}.${ROOT_DOMAIN}";
+
+        if [[ "$AWS_REGION" == "ap-northeast-2" ]]; then
+          MGMT_DOMAIN="${DOMAIN}.mgmt.an2.${ENV}.${ROOT_DOMAIN}";
+        fi
+
+        IMAGE="${AWS_ACCOUNT_NUMBER}.dkr.ecr.us-east-2.amazonaws.com/${SYSTEM_NAME}:${STATUS}-${PRD_TAG}";
+      else
+        IMAGE="${AWS_ACCOUNT_NUMBER}.dkr.ecr.us-east-2.amazonaws.com/${SYSTEM_NAME}:${STATUS}-${CI_PIPELINE_IID}"
+
+        if [[ "$CI_PROJECT_NAME" == "be-batch" ]] || [[ "$CI_PROJECT_NAME" == "alpha-be-batch" ]] || [[ "${LOWER_PJT_NAME}" == *"batch"* ]]; then
+          if [[ "$CI_COMMIT_REF_NAME" == "develop-bc" ]]; then
+            SYSTEM_NAME="${SYSTEM_NAME}-bc"
+          fi
+          IMAGE="${AWS_ACCOUNT_NUMBER}.dkr.ecr.us-east-2.amazonaws.com/${SYSTEM_NAME}:${STATUS}-latest";
+        fi
+
+        if [[ "$STATUS" == "beta" ]] && [[ "$CI_COMMIT_REF_NAME" == "develop-new" ]] && [[ "$CI_PROJECT_NAME" != *"sol-"* ]] && [[ "$CI_PROJECT_NAME" != "eth-block-confirmation" ]]; then
+          SYSTEM_NAME="${SYSTEM_NAME}-new"
+          IMAGE="${AWS_ACCOUNT_NUMBER}.dkr.ecr.us-east-2.amazonaws.com/${SYSTEM_NAME}:${STATUS}-${CI_PIPELINE_IID}"
+          FULL_DOMAIN="${DOMAIN}-new.dev.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="${DOMAIN}-new.mgmt.dev.${ROOT_DOMAIN}";
+        elif [[ "$STATUS" == "beta" ]] && [[ "$CI_COMMIT_REF_NAME" == "develop-bc" ]] && [[ "${LOWER_PJT_NAME}" != *"batch"* ]]  ; then
+          SYSTEM_NAME="${SYSTEM_NAME}-bc"
+          IMAGE="${AWS_ACCOUNT_NUMBER}.dkr.ecr.us-east-2.amazonaws.com/${SYSTEM_NAME}:${STATUS}-${CI_PIPELINE_IID}"
+          FULL_DOMAIN="${DOMAIN}-bc.dev.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="${DOMAIN}-bc.mgmt.dev.${ROOT_DOMAIN}";
+        elif [[ "$STATUS" == "beta" ]] && [[ "$CI_COMMIT_REF_NAME" == "develop" ]] && [[ "$CI_PROJECT_NAME" != *"sol-"* ]] && [[ "$CI_PROJECT_NAME" != "eth-block-confirmation" ]] && [[ "$CI_PROJECT_NAME" != *"polygon-"* ]] && [[ "$CI_PROJECT_NAME" != "eth-middleware" ]] && [[ "$CI_PROJECT_NAME" != "be-queue" ]]; then
+          SYSTEM_NAME="${SYSTEM_NAME}-next"
+          FULL_DOMAIN="${DOMAIN}-next.dev.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="${DOMAIN}-next.mgmt.dev.${ROOT_DOMAIN}";
+        else
+          FULL_DOMAIN="${DOMAIN}.${ENV}.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="${DOMAIN}.mgmt.${ENV}.${ROOT_DOMAIN}";
+        fi        
+        if [[ "$AWS_REGION" == "ap-northeast-2" ]]; then
+          MGMT_DOMAIN="${DOMAIN}.mgmt.an2.${ENV}.${ROOT_DOMAIN}";
+        fi     
+      fi
+
+    - echo $SYSTEM_NAME
+    - echo $SCHEMA
+    - echo $BRANCH
+    - echo $FULL_DOMAIN
+    - echo $MGMT_DOMAIN
+    - echo $IMAGE

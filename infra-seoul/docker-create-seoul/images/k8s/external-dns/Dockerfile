@@ -1,0 +1,1 @@
+FROM k8s.gcr.io/external-dns/external-dns:v0.11.0

@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-dns-feature-private
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: external-dns-feature-private
+  template:
+    metadata:
+      labels:
+        app: external-dns-feature-private
+    spec:
+      serviceAccountName: external-dns
+      containers:
+      - name: external-dns-feature-private
+        image: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/external-dns:0.11.0
+        args:
+        - --source=service
+        - --source=ingress
+        - --domain-filter=mgmt.feature.naemo.io # will make ExternalDNS see only the hosted zones matching provided domain, omit to process all available hosted zones
+        - --provider=aws
+        - --policy=sync # would prevent ExternalDNS from deleting any records, omit to enable full synchronization
+        - --aws-zone-type=private # only look at public hosted zones (valid values are public, private or no value for both)
+        - --registry=txt
+        - --txt-owner-id=Z06717763FKE2YT5PST8R
+      securityContext:
+        fsGroup: 65534 # For ExternalDNS to be able to read Kubernetes and AWS token files
+      nodeSelector:
+        System: management
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-dns-feature-public
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: external-dns-feature-public
+  template:
+    metadata:
+      labels:
+        app: external-dns-feature-public
+    spec:
+      serviceAccountName: external-dns
+      containers:
+      - name: external-dns-feature-public
+        image: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/external-dns:0.11.0
+        args:
+        - --source=service
+        - --source=ingress
+        - --domain-filter=feature.naemo.io # will make ExternalDNS see only the hosted zones matching provided domain, omit to process all available hosted zones
+        - --exclude-domains=mgmt.feature.naemo.io
+        - --provider=aws
+        - --policy=sync # would prevent ExternalDNS from deleting any records, omit to enable full synchronization
+        - --aws-zone-type=public # only look at public hosted zones (valid values are public, private or no value for both)
+        - --registry=txt
+        - --txt-prefix=temp
+        - --txt-owner-id=Z0835069320VI87STENNQ
+        - --aws-prefer-cname
+      securityContext:
+        fsGroup: 65534 # For ExternalDNS to be able to read Kubernetes and AWS token files
+      nodeSelector:
+        System: management

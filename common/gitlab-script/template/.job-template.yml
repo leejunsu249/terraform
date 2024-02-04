@@ -1,0 +1,297 @@
+.java-build-template:
+  resource_group: $CI_COMMIT_REF_NAME-java-build
+  tags:
+    - shared
+  image:
+    name: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/gitlab-runner-image-jdk11:11-jdk-slim
+  cache:
+    - key: $CI_COMMIT_REF_NAME-gradle
+      paths:
+        - .gradle/wrapper
+        - .gradle/caches
+      policy: pull-push
+  script:
+  #  - aws s3 cp s3://s3-an2-shd-gitlab-artifact/settings.gradle ./
+    - export GRADLE_USER_HOME=${CI_PROJECT_DIR}/.gradle
+    - ./gradlew build -x unitTest
+      -Dorg.gradle.jvmargs=-Xmx6g
+      --no-watch-fs 
+      --parallel 
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 2 week
+
+.java-build-template_jdk17:
+  resource_group: $CI_COMMIT_REF_NAME-java-build
+  tags:
+    - shared
+  image:
+    name: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/gitlab-runner-image-jdk17:17-jdk-slim
+  cache:
+    - key: $CI_COMMIT_REF_NAME-gradle-jdk17
+      paths:
+        - .gradle/wrapper
+        - .gradle/caches
+      policy: pull-push
+  script:
+  #  - aws s3 cp s3://s3-an2-shd-gitlab-artifact/settings.gradle ./
+    - export GRADLE_USER_HOME=${CI_PROJECT_DIR}/.gradle
+    - ./gradlew build -x unitTest
+      -Dorg.gradle.jvmargs=-Xmx6g
+      --no-watch-fs 
+      --parallel 
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 2 week
+
+
+.java-unit-test-template:
+  resource_group: $CI_COMMIT_REF_NAME-java-unittest
+  tags:
+    - shared
+  image:
+    name: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/gitlab-runner-image-jdk11:11-jdk-slim
+  cache:
+    - key: $CI_COMMIT_REF_NAME-gradle
+      paths:
+        - .gradle/wrapper
+        - .gradle/caches
+      policy: pull
+  script:
+#    - aws s3 cp s3://s3-an2-shd-gitlab-artifact/settings.gradle ./
+    - export GRADLE_USER_HOME=${CI_PROJECT_DIR}/.gradle
+    - ./gradlew unitTest 
+      -Dorg.gradle.jvmargs=-Xmx6g
+      --no-watch-fs 
+      --parallel 
+  artifacts:
+    when: always
+    reports:
+      junit: build/test-results/unitTest/**/TEST-*.xml
+    expire_in: 2 week
+  only:
+    refs:
+      - merge_requests
+
+.java-module-test-template:
+  resource_group: $CI_COMMIT_REF_NAME-module-test
+  tags:
+    - shared
+  environment:
+    name: $ENV
+  before_script:
+    - !reference [.get-branch, before_script]    
+  image:
+    name: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/gitlab-runner-image-newman:1.2
+  script:
+    - cd ${CI_PROJECT_DIR}
+    - >-
+      if [ $IS_FEATURE == "true" ]; then 
+        ./api-test/postman-run.sh module feature http://${MGMT_DOMAIN}
+      else
+        ./api-test/postman-run.sh module ${ENV}
+      fi
+  artifacts:
+    when: always
+    reports:
+      junit: api-test/report/module/*.xml
+    expire_in: 2 week
+  only:
+    refs:
+      - merge_requests
+
+.java-nounit-template:
+  resource_group: $CI_COMMIT_REF_NAME-java-build
+  tags:
+    - shared
+  image:
+    name: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/gitlab-runner-image-jdk11:11-jdk-slim
+  cache:
+    - key: $CI_COMMIT_REF_NAME-gradle
+      paths:
+        - .gradle/wrapper
+        - .gradle/caches
+      policy: pull-push
+  script:
+    - export GRADLE_USER_HOME=${CI_PROJECT_DIR}/.gradle
+    - ./gradlew build
+      -Dorg.gradle.jvmargs=-Xmx6g
+      --no-watch-fs 
+      --parallel 
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 2 week
+
+.sonarqube-template:
+  resource_group: $CI_COMMIT_REF_NAME-sonarqube
+  tags: 
+    - shared
+  environment:
+    name: $ENV
+  before_script:
+    - !reference [.get-branch, before_script] 
+  cache:
+    - key: $CI_COMMIT_REF_NAME-gradle
+      paths:
+        - .gradle/wrapper
+        - .gradle/caches
+      policy: pull
+  image:
+    name: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/gitlab-runner-image-jdk11:11-jdk-slim
+  script:
+#    - aws s3 cp s3://s3-an2-shd-gitlab-artifact/settings.gradle ./
+    - export GRADLE_USER_HOME=${CI_PROJECT_DIR}/.gradle 
+    - ./gradlew sonarqube -i -Dsonar.projectKey=${SYSTEM_NAME} 
+      -Dsonar.projectName=${SYSTEM_NAME} 
+      -Dsonar.language=java 
+      -Dsonar.sources=src/main/java 
+      -Dsonar.host.url=http://${SONAR_DOMAIN} 
+      -Dsonar.login=${SONAR_TOKEN} 
+      -Dsonar.qualitygate.wait=true 
+      -Dorg.gradle.jvmargs=-Xmx6g
+      --no-watch-fs 
+      --parallel 
+
+.sonarqube-template-jdk17:
+  resource_group: $CI_COMMIT_REF_NAME-sonarqube
+  tags: 
+    - shared
+  environment:
+    name: $ENV
+  before_script:
+    - !reference [.get-branch, before_script] 
+  cache:
+    - key: $CI_COMMIT_REF_NAME-gradle
+      paths:
+        - .gradle/wrapper
+        - .gradle/caches
+      policy: pull
+  image:
+    name: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/gitlab-runner-image-jdk17:17-jdk-slim
+  script:
+#    - aws s3 cp s3://s3-an2-shd-gitlab-artifact/settings.gradle ./
+    - export GRADLE_USER_HOME=${CI_PROJECT_DIR}/.gradle 
+    - ./gradlew sonarqube -i -Dsonar.projectKey=${SYSTEM_NAME} 
+      -Dsonar.projectName=${SYSTEM_NAME} 
+      -Dsonar.language=java 
+      -Dsonar.sources=src/main/java 
+      -Dsonar.host.url=http://${SONAR_DOMAIN} 
+      -Dsonar.login=${SONAR_TOKEN} 
+      -Dsonar.qualitygate.wait=true 
+      -Dorg.gradle.jvmargs=-Xmx6g
+      --no-watch-fs 
+      --parallel 
+
+      
+.terraform-apply-template:
+  resource_group: $CI_COMMIT_REF_NAME-terraform-apply
+  tags:
+    - shared
+  environment:
+    name: $ENV
+  before_script:
+    - !reference [.aws-assume-template, before_script]
+    - !reference [.get-branch, before_script]
+  script:
+    - cd cicd/terraform
+    - sed -i -e s/_SYSTEM_NAME_/$SYSTEM_NAME/g ./configurations/feature.tfvars
+    - ./get-setenv.sh configurations/feature.tfvars
+    - cat backend.tf
+    - terraform apply -auto-approve -var-file configurations/feature.tfvars
+  only:
+    refs:
+      - merge_requests
+
+.docker-build-template:
+  resource_group: $CI_COMMIT_REF_NAME-docker-build
+  tags:
+    - shared
+  environment:
+    name: $ENV
+  variables:
+    AWS_REGION: "us-east-2"    
+  image:
+    name: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/gitlab-runner-image-kaniko:1.1
+    entrypoint: [""]
+  before_script:
+    - !reference [.get-branch, before_script]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"credHelpers\":{\"${AWS_ACCOUNT_NUMBER}.dkr.ecr.us-east-2.amazonaws.com\":\"ecr-login\"}}" > /kaniko/.docker/config.json
+    - >-
+      /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "${IMAGE}"
+
+## discord 추가
+.npm-install-template-discord:
+  resource_group: $CI_COMMIT_REF_NAME-install-discord
+  tags:
+    - shared
+  cache:
+    - key: $CI_COMMIT_REF_NAME-node_modules-discord
+      policy: push
+      paths:
+        - ./node_modules/
+    - key: $CI_COMMIT_REF_NAME-npm-discord
+      policy: pull-push
+      paths:
+        - ./npm
+  script:
+    - npm i ts-node typescript
+    - npm install
+
+
+.eks-deploy-template:
+  resource_group: $CI_COMMIT_REF_NAME-eks-deploy
+  tags:
+    - shared
+  environment:
+    name: $ENV
+  variables:
+    CICD_ENV: $ENV
+    HELM_REPO: "${CI_PROJECT_NAME}-helm"
+    VALUEFILE: "values.yaml"
+  image:
+    name: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/gitlab-runner-image-argocli:1.0
+  before_script:
+    - git config --global user.name "${GITLAB_USER_NAME}"
+    - git config --global user.email "${GITLAB_USER_EMAIL}"
+    - git config --global http.sslverify "false"
+    - !reference [.get-branch, before_script]
+  script:
+    - !reference [.helm-script, script]
+    - !reference [.argocd-create-new-app-script, script]
+    - >-
+      if [ $ENV == "dev" -a $IS_FEATURE == "true" ]; then
+        argocd app sync $SYSTEM_NAME --force --prune --auth-token $ARGO_TOKEN --server $ARGO_CD_URL --plaintext --grpc-web
+      else
+        argocd app sync $SYSTEM_NAME --force --auth-token $ARGO_TOKEN --server $ARGO_CD_URL --plaintext --grpc-web
+      fi;
+    - argocd app wait $SYSTEM_NAME --timeout 600 --auth-token $ARGO_TOKEN --server $ARGO_CD_URL --plaintext --health --grpc-web
+    - echo "public domain - https://${FULL_DOMAIN}";
+    - echo "internal domain - http://${MGMT_DOMAIN}";
+
+.helm-update-template:
+  resource_group: $CI_COMMIT_REF_NAME-helm-update
+  tags:
+    - shared
+  environment:
+    name: $ENV
+  variables:
+    CICD_ENV: $ENV
+    HELM_REPO: "${CI_PROJECT_NAME}-helm"
+    VALUEFILE: "values.yaml"
+  image:
+    name: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/gitlab-runner-image-argocli:1.0
+  before_script:
+    - git config --global user.name "${GITLAB_USER_NAME}"
+    - git config --global user.email "${GITLAB_USER_EMAIL}"
+    - git config --global http.sslverify "false"
+    - !reference [.get-branch, before_script]
+  script:
+    - !reference [.helm-script, script]

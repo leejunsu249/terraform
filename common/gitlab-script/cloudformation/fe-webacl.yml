@@ -1,0 +1,104 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "fe webACL"
+
+Parameters:
+  Feature:
+    Type: String
+    Default: ""
+  Env:
+    Type: String
+    Default: ""
+  
+Conditions:
+  IsFeature: !Equals
+    - !Ref Feature
+    - "true"
+  IsNotFeature: !Not [ Condition: IsFeature ]
+
+Resources:
+  WebACL:
+    Condition: IsNotFeature
+    Type: AWS::WAFv2::WebACL
+    DependsOn:
+      - AllowedIPSet
+    Properties:
+      Name: 'naemo-fe-WebACL-dev-stg'
+      Scope: CLOUDFRONT
+      DefaultAction:
+        Block: {}
+      Description: 'To limit access to allowed IP addresses only'
+      Rules:
+        - Name: 'NaemoFeWebACLRule'
+          Priority: 0
+          Statement:
+            IPSetReferenceStatement:
+              ARN: !GetAtt AllowedIPSet.Arn
+          Action:
+            Allow: {}
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: 'NaemoFeWebACLRule'
+      VisibilityConfig:
+        SampledRequestsEnabled: true
+        CloudWatchMetricsEnabled: true
+        MetricName: 'NaemoFeWebACLMetric'
+      Capacity: 1
+
+  AllowedIPSet:
+    Condition: IsNotFeature
+    Type: AWS::WAFv2::IPSet
+    Properties:
+      Description: 'Allowed IP Addresses-fe'
+      Name: 'naemo-fe-allowd-ip-dev-stg'
+      Scope: CLOUDFRONT
+      IPAddressVersion: IPV4
+      Addresses:
+        - "124.49.193.195/32" 
+        - "165.243.5.20/32" 
+        - "27.122.140.10/32"
+        - "115.139.141.70/32"
+        - "3.37.77.148/32" 
+        - "182.224.50.62/32"
+        - "182.229.60.83/32"
+        - "218.153.169.217/32" 
+        - "221.167.229.86/32"
+        - "112.145.201.232/32"
+        - "122.46.241.216/32"
+        - "211.109.161.71/32"
+        - "121.141.102.157/32"
+        - "125.177.192.12/32"
+        - "14.7.32.72/32"
+        - "119.196.89.245/32"
+        - "203.132.181.159/32"
+        - "110.13.234.153/32"
+        - "220.79.175.39/32"
+        - "219.241.18.36/32"
+        - "61.74.89.84/32"
+        - "49.174.151.228/32"
+        - "125.177.232.71/32"
+        - "112.145.203.205/32"
+        - "118.221.81.12/32"
+        - "220.85.201.38/32"
+        - "119.70.25.131/32" 
+        - "183.102.104.107/32"
+        - "182.55.75.134/32"
+        - "95.91.247.28/32"
+        - "220.85.230.88/32"
+        - "188.120.85.217/32"
+        - "115.136.207.27/32"
+
+Outputs:
+  WebACLArn:
+    Description: "WebACLId"
+    Value: !GetAtt WebACL.Arn
+
+  # BucketUrl:
+  #   Description: "S3 Bucket Url"
+  #   Value: !GetAtt "S3Bucket.WebsiteURL"
+  # DistributionId:
+  #   Description: "CloudFront Distribution ID"
+  #   Value: !Ref CloudFrontDistribution
+  # Domain:
+  #   Description: "Cloudfront Domain"
+  #   Value: !GetAtt CloudFrontDistribution.DomainName

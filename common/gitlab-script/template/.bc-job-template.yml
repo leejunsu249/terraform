@@ -1,0 +1,179 @@
+.npm-install-template:
+  resource_group: $CI_COMMIT_REF_NAME-install
+  tags:
+    - shared
+  # cache:
+  #   - key: $CI_COMMIT_REF_NAME-node_modules-bc
+  #     policy: push
+  #     paths:
+  #       - .${WORKING_DIR}/node_modules/
+  script:
+    # - aws s3 cp s3://s3-an2-shd-gitlab-artifact/.npmrc ./.npmrc    
+    - npm set registry=http://nexus.mgmt.an2.shd.naemo.io:8081/repository/npm-proxy/
+    - npm set _auth=Z2l0bGFiOm5hZW1vMjAyMiE=
+    - npm set strict-ssl=false
+    - npm set always-auth=true
+    - npm install
+    - >-
+      if [ -n ${CMD} -a ${CMD} == "pm2" ]; then
+        npm install -D pm2;
+        npx pm2 install typescript;
+      elif [ -n ${CMD} -a ${CMD} == "js" ]; then
+        npm install typescript;
+      fi;
+  artifacts:
+    paths:
+      - ${ARTIFACT_DIR}node_modules/
+    expire_in: 2 week
+
+.npm-install-template-comm:
+  resource_group: $CI_COMMIT_REF_NAME-install
+  tags:
+    - shared
+  script:
+    - npm install
+  artifacts:
+    paths:
+      - ${ARTIFACT_DIR}node_modules/
+    expire_in: 2 week
+
+.npm-build-template:
+  resource_group: $CI_COMMIT_REF_NAME-build
+  tags:
+    - shared
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - ${ARTIFACT_DIR}dist/
+    expire_in: 2 week
+
+.docker-build-template:
+  resource_group: $CI_COMMIT_REF_NAME-docker-build
+  tags:
+  - shared
+  environment:
+    name: $ENV
+  variables:
+    AWS_REGION: "us-east-2"    
+  image:
+    name: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/gitlab-runner-image-kaniko:1.0
+    entrypoint: [""]
+  before_script:
+    - !reference [.get-branch, before_script]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"credHelpers\":{\"${AWS_ACCOUNT_NUMBER}.dkr.ecr.us-east-2.amazonaws.com\":\"ecr-login\"}}" > /kaniko/.docker/config.json
+    - >-
+      /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile" 
+      --destination "${IMAGE}"
+      --cache=true --cache-copy-layers=true
+      --cache-repo="${AWS_ACCOUNT_NUMBER}.dkr.ecr.us-east-2.amazonaws.com/blockchain_cache"
+  
+.eks-deploy-template:
+  resource_group: $CI_COMMIT_REF_NAME-eks-deploy
+  tags:
+  - shared
+  environment:
+    name: $ENV
+  variables:
+    CICD_ENV: $ENV
+    HELM_REPO: "${CI_PROJECT_NAME}-helm"
+    VALUEFILE: "values.yaml"
+  image:
+    name: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/gitlab-runner-image-argocli:1.0
+  before_script:
+    - git config --global user.name "${GITLAB_USER_NAME}"
+    - git config --global user.email "${GITLAB_USER_EMAIL}"
+    - git config --global http.sslverify "false"
+    - !reference [.get-branch, before_script]
+  script:
+    - echo $SCHEMA
+    - !reference [.helm-script, script]
+    - !reference [.argocd-create-new-app-script, script]
+    - >-
+      if [ $ENV == "dev" -a $IS_FEATURE == "true" ]; then
+        argocd app sync $SYSTEM_NAME --force --prune --auth-token $ARGO_TOKEN --server $ARGO_CD_URL --plaintext --grpc-web
+      else
+        argocd app sync $SYSTEM_NAME --force --auth-token $ARGO_TOKEN --server $ARGO_CD_URL --plaintext --grpc-web
+      fi;
+    - argocd app wait $SYSTEM_NAME --timeout 600 --auth-token $ARGO_TOKEN --server $ARGO_CD_URL --plaintext --health --grpc-web
+    - echo "public domain - https://${FULL_DOMAIN}";
+    - echo "internal domain - http://${MGMT_DOMAIN}";
+
+.chain-deploy-template:
+  tags:
+    - shared
+  environment:
+    name: $ENV
+  before_script:
+    - !reference [.aws-assume-template, before_script]
+    - !reference [.get-branch, before_script]
+  script:
+    - TODAY=$(date +'%Y%m%d%H%M')
+    - GIT_HASH="$(git rev-parse --short HEAD)"
+    - FILE_NAME="${CHAIN_CODE_NAME}-${TODAY}-${GIT_HASH}"
+    - if [ ! -d ./deploy ]; then
+        mkdir deploy;
+      fi;
+    - |
+      cat << EOF > ./deploy/appspec.yml
+      version: 0.0
+      os: linux
+      files:
+        - source: /
+          destination: /data001/gitlab/$FILE_NAME
+      
+      permissions:
+        - object: /
+          pattern: "**"
+          owner: bcs
+          group: bcs
+      
+      hooks:
+        ApplicationStart:
+          - location: deploy.sh
+            runas: bcs
+      EOF
+    - |
+      cat << EOF > ./deploy/deploy.sh
+      #!/bin/sh
+      if [ ! -d /data001/weaver/deploy-cc ] ; then
+       mkdir /data001/weaver/deploy-cc 
+      fi
+      cp -f /data001/gitlab/${FILE_NAME}/${FILE_NAME}.tar /data001/weaver/deploy-cc/${FILE_NAME}.tar
+      EOF
+    - tar cvf ./deploy/${FILE_NAME}.tar ./ --exclude "./.git" --exclude "./.gitignore" --exclude "./.gitlab-ci.yml" --exclude "./deploy"
+    - tar cvf ${CHAIN_CODE_NAME}.tar ./deploy/*
+    - aws s3 cp ./${CHAIN_CODE_NAME}.tar s3://${DEPLOY_S3_BUCKET_NAME}
+    - deployment_response=$(aws deploy create-deployment
+      --application-name ${DEPLOY_APP_NAME}
+      --deployment-group-name ${DEPLOY_GRP_NAME}
+      --s3-location bucket=${DEPLOY_S3_BUCKET_NAME},key=${CHAIN_CODE_NAME}.tar,bundleType=tar
+      --region ${DEPLOY_REGION})
+    - export deployment_id=$(echo "$deployment_response" | jq -r '.deploymentId')
+    - sleep 30
+    - aws deploy get-deployment --deployment-id "${deployment_id}" --region ${DEPLOY_REGION}
+
+.helm-update-template:
+  resource_group: $CI_COMMIT_REF_NAME-helm-update
+  tags:
+    - shared
+  environment:
+    name: $ENV
+  variables:
+    CICD_ENV: $ENV
+    HELM_REPO: "${CI_PROJECT_NAME}-helm"
+    VALUEFILE: "values.yaml"
+  image:
+    name: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/gitlab-runner-image-argocli:1.0
+  before_script:
+    - git config --global user.name "${GITLAB_USER_NAME}"
+    - git config --global user.email "${GITLAB_USER_EMAIL}"
+    - git config --global http.sslverify "false"
+    - !reference [.get-branch, before_script]
+  script:
+    - !reference [.helm-script, script]
+

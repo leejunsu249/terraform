@@ -1,0 +1,220 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "fe deployment"
+
+Parameters:
+  BucketName:
+    Type: String
+    Default: ""
+  WebsiteUrl:
+    Type: String
+    Default: ""
+  Feature:
+    Type: String
+    Default: ""
+  Env:
+    Type: String
+    Default: ""
+  WebACLArn:
+    Type: String
+    Default: ""
+  
+Conditions:
+  IsFeature: !Equals
+    - !Ref Feature
+    - "true"
+  IsNotFeature: !Not [ Condition: IsFeature ]
+
+Mappings: 
+  Data: 
+    dev: 
+      "HostedZoneId": "Z08823887E0TLEMVFIRP"
+      "AcmCertificateArn": "arn:aws:acm:us-east-1:385866877617:certificate/051c88be-3792-40c8-a080-5c3bcac03f36"
+      "Aliases": [ "creator.dev.naemo.io" ] 
+
+Resources:
+  # Create the bucket to contain the website HTML
+  S3Bucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Ref BucketName
+      WebsiteConfiguration:
+        !If
+        - IsFeature
+        - 
+          ErrorDocument: "index.html"
+          IndexDocument: "index.html"
+        - !Ref "AWS::NoValue"
+      PublicAccessBlockConfiguration:
+        !If
+        - IsFeature
+        - !Ref "AWS::NoValue"
+        - 
+          BlockPublicAcls: true
+          BlockPublicPolicy: true
+          IgnorePublicAcls: true
+          RestrictPublicBuckets: true
+
+  # Configure the bucket as a CloudFront Origin
+  ReadPolicy:
+    Type: "AWS::S3::BucketPolicy"
+    Properties:
+      Bucket: !Ref S3Bucket
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: 
+              - !Sub "arn:aws:s3:::${S3Bucket}/*"
+              - !Sub "arn:aws:s3:::${S3Bucket}"
+            Principal:
+              !If
+              - IsFeature
+              - "*"
+              - CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
+            Condition:
+              !If
+              - IsFeature
+              - IpAddress:
+                  'aws:SourceIp':
+                    - "124.49.193.195/32" 
+                    - "165.243.5.20/32" 
+                    - "27.122.140.10/32"
+                    - "115.139.141.70/32"
+                    - "3.37.77.148/32" 
+                    - "182.224.50.62/32"
+                    - "182.229.60.83/32"
+                    - "218.153.169.217/32" 
+                    - "221.167.229.86/32"
+                    - "112.145.201.232/32"
+                    - "122.46.241.216/32"
+                    - "211.109.161.71/32"
+                    - "121.141.102.157/32"
+                    - "125.177.192.12/32"
+                    - "14.7.32.72/32"
+                    - "119.196.89.245/32"
+                    - "203.132.181.159/32"
+                    - "110.13.234.153/32"
+                    - "220.79.175.39/32"
+                    - "219.241.18.36/32"
+                    - "61.74.89.84/32"
+                    - "49.174.151.228/32"
+                    - "125.177.232.71/32"
+                    - "112.145.203.205/32"
+                    - "118.221.81.12/32"
+                    - "220.85.201.38/32"
+                    - "119.70.25.131/32" 
+                    - "115.136.207.27/32"
+              - !Ref "AWS::NoValue"
+
+  # Configure Access to CloudFront
+  CloudFrontOriginAccessIdentity:
+    Type: "AWS::CloudFront::CloudFrontOriginAccessIdentity"
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: !Ref S3Bucket
+
+  # Configure CloudFront
+  CloudFrontDistribution:
+    Type: "AWS::CloudFront::Distribution"
+    Condition: IsNotFeature
+    Properties:
+      DistributionConfig:
+        WebACLId: !Ref WebACLArn
+        CustomErrorResponses:
+          - ErrorCode: 403 # access denied
+            ResponseCode: 200
+            ResponsePagePath: "/index.html"
+          - ErrorCode: 404 # not found
+            ResponseCode: 200
+            ResponsePagePath: "/index.html"
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+          CachedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+          Compress: true
+          DefaultTTL: 3600 # in seconds
+          ForwardedValues:
+            Cookies:
+              Forward: none
+            QueryString: false
+          MaxTTL: 86400 # in seconds
+          MinTTL: 60 # in seconds
+          TargetOriginId: s3origin
+          ViewerProtocolPolicy: "redirect-to-https"
+        # This DefaultRootObject configuration is not enough.
+        CacheBehaviors:
+          - PathPattern: "/"
+            TargetOriginId: s3origin
+            ViewerProtocolPolicy: "redirect-to-https"
+            CachePolicyId: "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
+          - PathPattern: "/index.html"
+            TargetOriginId: s3origin
+            ViewerProtocolPolicy: "redirect-to-https"
+            CachePolicyId: "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
+        DefaultRootObject: "index.html"
+        Enabled: true
+        HttpVersion: http2
+        Origins:
+          - DomainName: !GetAtt "S3Bucket.DomainName"
+            Id: s3origin
+            S3OriginConfig:
+              OriginAccessIdentity: !Sub "origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}"
+        PriceClass: "PriceClass_All"
+        Aliases: 
+          !FindInMap 
+          - Data
+          - !Ref Env
+          - "Aliases"
+        ViewerCertificate:
+          AcmCertificateArn: !FindInMap 
+            - Data
+            - !Ref Env
+            - "AcmCertificateArn"
+          SslSupportMethod: "sni-only"
+          MinimumProtocolVersion: "TLSv1.2_2019"
+
+  DNSRecordSetGroup:
+    Type: 'AWS::Route53::RecordSetGroup'
+    Properties:
+      # HostedZoneId: !FindInMap 
+      #   - Data
+      #   - !Ref Env
+      #   - "HostedZoneId"
+      HostedZoneId: !If
+        - IsFeature
+        - Z0835069320VI87STENNQ
+        - !FindInMap 
+          - Data
+          - !Ref Env
+          - "HostedZoneId"
+      RecordSets:
+        - Name: !Ref WebsiteUrl
+          Type: A
+          AliasTarget:
+            HostedZoneId: !If [ IsFeature, Z2O1EMRO9K5GLX, Z2FDTNDATAQYW2 ] 
+            DNSName: !If 
+              - IsFeature
+              - "s3-website.us-east-2.amazonaws.com."
+              - !GetAtt 
+                - CloudFrontDistribution
+                - DomainName
+
+Outputs:
+  Bucket:
+    Description: "S3 Bucket Name"
+    Value: !Ref S3Bucket
+
+  # BucketUrl:
+  #   Description: "S3 Bucket Url"
+  #   Value: !GetAtt "S3Bucket.WebsiteURL"
+  # DistributionId:
+  #   Description: "CloudFront Distribution ID"
+  #   Value: !Ref CloudFrontDistribution
+  # Domain:
+  #   Description: "Cloudfront Domain"
+  #   Value: !GetAtt CloudFrontDistribution.DomainName

@@ -1,0 +1,17 @@
+.slack-noti:
+  after_script:
+    - echo ${SLACK_WEBHOOK_URL}
+    - echo ${SLACK_CHANNEL}
+    - echo ${CI_JOB_STATUS}
+    - export COMMIT_DATE=$(echo $CI_COMMIT_TIMESTAMP | cut -d T -f1)
+    - export COMMIT_TIME=$(echo $CI_COMMIT_TIMESTAMP | cut -d T -f2 | cut -d + -f1)
+    - >-
+      if [[ ${CI_JOB_STATUS} != "success" ]] && [[ ${CI_JOB_NAME} != "sonarqube-test" ]]; then
+        if [[ -n "${CI_OPEN_MERGE_REQUESTS}" ]] || [[ ${CI_COMMIT_REF_NAME} == "develop" ]] || [[ ${CI_COMMIT_REF_NAME} == "develop_next" ]] || [[ ${CI_COMMIT_REF_NAME} == "release" ]] || [[ ${CI_COMMIT_REF_NAME} == "master" ]]; then
+          if [[ -n "${SLACK_CHANNEL}" ]]; then
+            curl -X POST ${SLACK_WEBHOOK_URL} -H 'Content-Type: application/json' -d '{"channel": "'"$SLACK_CHANNEL"'", "username": "GitLab", "attachments": [{"color": "#a30301","author_name": "'"$CI_PROJECT_NAME"'","author_link": "'"$CI_PIPELINE_URL"'","title": "['"$CI_COMMIT_REF_NAME"'] is '"$CI_JOB_STATUS"' :rotating_light:","title_link": "'"$CI_JOB_URL"'","fields": [{"title": "Branch","value": "'"$CI_COMMIT_REF_NAME"'","short": true},{"title": "Commit","value": "'"$CI_COMMIT_TITLE"'","short": true},{"title": "Stage","value": "'"$CI_JOB_STAGE"'","short": true},{"title": "Job","value": "'"$CI_JOB_NAME"'","short": true},{"title": "Commit Time","value": "'"$COMMIT_DATE"' '"$COMMIT_TIME"'","short": true},],"footer": ":technologist: '"$GITLAB_USER_NAME"' / '"$CI_COMMIT_AUTHOR"'"}]}'
+          else
+            curl -X POST ${SLACK_WEBHOOK_URL} -H 'Content-Type: application/json' -d '{"channel": "#pipeline-notification", "username": "GitLab", "attachments": [{"color": "#a30301","author_name": "'"$CI_PROJECT_NAME"'","author_link": "'"$CI_PIPELINE_URL"'","title": "['"$CI_COMMIT_REF_NAME"'] is '"$CI_JOB_STATUS"' :rotating_light:","title_link": "'"$CI_JOB_URL"'","fields": [{"title": "Branch","value": "'"$CI_COMMIT_REF_NAME"'","short": true},{"title": "Commit","value": "'"$CI_COMMIT_TITLE"'","short": true},{"title": "Stage","value": "'"$CI_JOB_STAGE"'","short": true},{"title": "Job","value": "'"$CI_JOB_NAME"'","short": true},{"title": "Commit Time","value": "'"$COMMIT_DATE"' '"$COMMIT_TIME"'","short": true},],"footer": ":technologist: '"$GITLAB_USER_NAME"' / '"$CI_COMMIT_AUTHOR"'"}]}'
+          fi;
+        fi;
+      fi;

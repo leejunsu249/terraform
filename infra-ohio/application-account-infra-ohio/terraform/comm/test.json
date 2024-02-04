@@ -1,0 +1,1331 @@
+Acquiring state lock. This may take a few moments...
+[0m[1mtls_private_key.lena_private_key: Refreshing state... [id=6f03927a39b5de5059df1ff6bc741b0009ba66a2][0m
+[0m[1mtls_private_key.search_private_key: Refreshing state... [id=c679699ae9275d0333fd253619c2a2c5d252750f][0m
+[0m[1mtls_private_key.tuna_private_key: Refreshing state... [id=dbf59284916d49791453eab1ce122c9eb95fd40f][0m
+[0m[1mtls_private_key.bcs_private_key[0]: Refreshing state... [id=53668adfd24dcd6632a78955326aa45454571c54][0m
+[0m[1mtls_private_key.ec2_private_key: Refreshing state... [id=2862c9e5d2fddd2b26dd84236f9806956ec07892][0m
+[0m[1mdata.template_file.userdata_tuna: Reading...[0m[0m
+[0m[1mdata.template_file.userdata_search: Reading...[0m[0m
+[0m[1mdata.template_file.userdata_tuna: Read complete after 0s [id=cb97c90aa7c9a28fbb3a12f44e607b9b82c97bfc479dad96ffea935e8583977a][0m
+[0m[1mdata.template_file.userdata_search: Read complete after 0s [id=cf3b4b6e7c0200724fb3102fafcc2b9aad7f02444799d11a231258e71059e906][0m
+[0m[1mdata.template_file.userdata_lena: Reading...[0m[0m
+[0m[1mdata.template_file.userdata_lena: Read complete after 0s [id=78cc260efcd9c339bed964369595aec38ca0ecc37f60ff74c2140ce08ea3fe45][0m
+[0m[1mdata.aws_region.current: Reading...[0m[0m
+[0m[1mdata.aws_region.current: Read complete after 0s [id=us-east-2][0m
+[0m[1maws_security_group_rule.allow_inbound_tuna_bastion_http: Refreshing state... [id=sgrule-3322006373][0m
+[0m[1maws_ecr_repository.eth_block_confirmation_image: Refreshing state... [id=eth-block-confirmation][0m
+[0m[1maws_ecr_repository.be_centralwallet_image: Refreshing state... [id=be-centralwallet][0m
+[0m[1maws_security_group_rule.allow_web_inbound_bastion_http: Refreshing state... [id=sgrule-1583995991][0m
+[0m[1maws_ecr_repository.fe_systemadmin_image: Refreshing state... [id=fe-systemadmin][0m
+[0m[1maws_ecr_repository.sol_block_confirmation_image: Refreshing state... [id=sol-block-confirmation][0m
+[0m[1maws_ecr_repository.be_kafka_image: Refreshing state... [id=be-kafka][0m
+[0m[1maws_ecr_repository.fe_centralwallet_image: Refreshing state... [id=fe-centralwallet][0m
+[0m[1maws_sqs_queue.notification_default_queue: Refreshing state... [id=https://sqs.us-east-2.amazonaws.com/087942668956/sqs-ue2-stg-default-notification-email][0m
+[0m[1maws_cognito_user_pool.cognito_systemadmin: Refreshing state... [id=us-east-2_vJA9Nxqvq][0m
+[0m[1maws_ecr_repository.be_notification_image: Refreshing state... [id=be-notification][0m
+[0m[1maws_ebs_encryption_by_default.ebs_encrypt: Refreshing state... [id=terraform-20220524002158562600000001][0m
+[0m[1maws_ecr_repository.blockchain_cache_image: Refreshing state... [id=blockchain_cache][0m
+[0m[1maws_key_pair.bcs_keypair[0]: Refreshing state... [id=bcs-key][0m
+[0m[1maws_ecr_repository.eth_batch_image: Refreshing state... [id=eth-batch][0m
+[0m[1maws_s3_bucket.portfolio_bucket: Refreshing state... [id=s3-ue2-stg-naemo-portfolio][0m
+[0m[1maws_key_pair.ec2_keypair: Refreshing state... [id=ec2-key][0m
+[0m[1maws_kms_key.redis: Refreshing state... [id=8c22c19a-ecf5-40df-9e57-38983d85b68c][0m
+[0m[1maws_sqs_queue.fifo_marketpalce_voucher: Refreshing state... [id=https://sqs.us-east-2.amazonaws.com/087942668956/sqs-ue2-stg-fifo-marketplace-voucher.fifo][0m
+[0m[1maws_s3_bucket.collection_bucket: Refreshing state... [id=s3-ue2-stg-naemo-collection][0m
+[0m[1maws_cognito_user_pool.cognito_marketplace: Refreshing state... [id=us-east-2_FepRav4dC][0m
+[0m[1maws_s3_bucket.member_bucket: Refreshing state... [id=s3-ue2-stg-naemo-member][0m
+[0m[1maws_ecr_repository.eth_middleware_image: Refreshing state... [id=eth-middleware][0m
+[0m[1maws_ecr_repository.bc_centralwallet_image: Refreshing state... [id=bc-centralwallet][0m
+[0m[1maws_key_pair.lena_keypair: Refreshing state... [id=lena-key][0m
+[0m[1mdata.aws_default_tags.current: Reading...[0m[0m
+[0m[1mdata.aws_default_tags.current: Read complete after 0s [id=aws][0m
+[0m[1maws_ecr_repository.sol_middleware_image: Refreshing state... [id=sol-middleware][0m
+[0m[1maws_ecr_repository.be_metaverse_image: Refreshing state... [id=be-metaverse][0m
+[0m[1maws_s3_bucket.launchpad_bucket: Refreshing state... [id=s3-ue2-stg-naemo-launchpad][0m
+[0m[1maws_s3_bucket.nft_bucket: Refreshing state... [id=s3-ue2-stg-naemo-nft][0m
+[0m[1maws_ecr_repository.be_marketplace_image: Refreshing state... [id=be-marketplace][0m
+[0m[1maws_s3_bucket.fe-systemadmin_bucket: Refreshing state... [id=s3-ue2-stg-naemo-fe-systemadmin][0m
+[0m[1maws_ecr_repository.be_search_image: Refreshing state... [id=be-search][0m
+[0m[1maws_s3_bucket.heap_dump_bucket: Refreshing state... [id=s3-ue2-stg-naemo-heap-dump][0m
+[0m[1maws_sqs_queue.metaverse_inf_queue: Refreshing state... [id=https://sqs.us-east-2.amazonaws.com/087942668956/sqs-ue2-stg-metaverse-inf][0m
+[0m[1maws_iam_policy.ec2_policy: Refreshing state... [id=arn:aws:iam::087942668956:policy/ec2-policy][0m
+[0m[1maws_s3_bucket.fe-marketplace_bucket: Refreshing state... [id=s3-ue2-stg-naemo-fe-marketplace][0m
+[0m[1maws_kms_key.rds: Refreshing state... [id=2932aea5-f972-413a-b238-7eec929205d9][0m
+[0m[1maws_key_pair.search_keypair: Refreshing state... [id=search-key][0m
+[0m[1maws_ecr_repository.be_launchpadruntime_image: Refreshing state... [id=be-launchpadruntime][0m
+[0m[1maws_key_pair.tuna_keypair: Refreshing state... [id=tuna-key][0m
+[0m[1mdata.aws_kms_key.rds: Reading...[0m[0m
+[0m[1maws_s3_bucket.fe-creator_bucket: Refreshing state... [id=s3-ue2-stg-naemo-fe-creator][0m
+[0m[1mdata.aws_kms_key.rds: Read complete after 1s [id=7f3a9194-edb9-4aaf-81ac-c9d324d95fec][0m
+[0m[1maws_ecr_repository.be_systemadmin_image: Refreshing state... [id=be-systemadmin][0m
+[0m[1mdata.aws_caller_identity.current: Reading...[0m[0m
+[0m[1maws_ecr_repository.sol_batch_image: Refreshing state... [id=sol-batch][0m
+[0m[1mdata.aws_caller_identity.current: Read complete after 1s [id=087942668956][0m
+[0m[1maws_cognito_user_pool_client.cognito_systemadmin_client: Refreshing state... [id=3qrgj9t16ckmfn309jpb7rd5g8][0m
+[0m[1maws_ecr_lifecycle_policy.eth_block_confirmation_lifecycle_policy: Refreshing state... [id=eth-block-confirmation][0m
+[0m[1maws_ecr_repository_policy.be_centralwallet_image_policy: Refreshing state... [id=be-centralwallet][0m
+[0m[1maws_ecr_repository_policy.eth_block_confirmation_image_policy: Refreshing state... [id=eth-block-confirmation][0m
+[0m[1maws_ecr_lifecycle_policy.be_centralwallet_lifecycle_policy: Refreshing state... [id=be-centralwallet][0m
+[0m[1maws_ecr_lifecycle_policy.be_kafka_lifecycle_policy: Refreshing state... [id=be-kafka][0m
+[0m[1maws_ecr_repository_policy.sol_block_confirmation_image_policy: Refreshing state... [id=sol-block-confirmation][0m
+[0m[1maws_ecr_repository_policy.be_kafka_image_policy: Refreshing state... [id=be-kafka][0m
+[0m[1maws_ecr_lifecycle_policy.sol_block_confirmation_lifecycle_policy: Refreshing state... [id=sol-block-confirmation][0m
+[0m[1maws_ecr_repository_policy.fe_systemadmin_image_policy: Refreshing state... [id=fe-systemadmin][0m
+[0m[1maws_ecr_lifecycle_policy.fe_systemadmin_lifecycle_policy: Refreshing state... [id=fe-systemadmin][0m
+[0m[1maws_ecr_lifecycle_policy.fe_centralwallet_lifecycle_policy: Refreshing state... [id=fe-centralwallet][0m
+[0m[1maws_ecr_repository_policy.fe_centralwallet_image_policy: Refreshing state... [id=fe-centralwallet][0m
+[0m[1maws_ecr_lifecycle_policy.be_notification_lifecycle_policy: Refreshing state... [id=be-notification][0m
+[0m[1maws_ecr_repository_policy.be_notification_image_policy: Refreshing state... [id=be-notification][0m
+[0m[1maws_ecr_repository_policy.blockchain_cache_image_policy: Refreshing state... [id=blockchain_cache][0m
+[0m[1maws_ecr_lifecycle_policy.blockchain_cache_lifecycle_policy: Refreshing state... [id=blockchain_cache][0m
+[0m[1maws_ecr_lifecycle_policy.eth_batch_lifecycle_policy: Refreshing state... [id=eth-batch][0m
+[0m[1maws_ecr_repository_policy.eth_batch_image_policy: Refreshing state... [id=eth-batch][0m
+[0m[1maws_ecr_repository_policy.eth_middleware_image_policy: Refreshing state... [id=eth-middleware][0m
+[0m[1maws_ecr_lifecycle_policy.eth_middleware_lifecycle_policy: Refreshing state... [id=eth-middleware][0m
+[0m[1maws_cognito_user_pool_client.cognito_marketplace_client: Refreshing state... [id=77278d5q9841siagnu1tc0ors1][0m
+[0m[1maws_ecr_lifecycle_policy.bc_centralwallet_lifecycle_policy: Refreshing state... [id=bc-centralwallet][0m
+[0m[1maws_ecr_repository_policy.bc_centralwallet_image_policy: Refreshing state... [id=bc-centralwallet][0m
+[0m[1maws_ecr_repository_policy.sol_middleware_image_policy: Refreshing state... [id=sol-middleware][0m
+[0m[1maws_ecr_lifecycle_policy.sol_middleware_lifecycle_policy: Refreshing state... [id=sol-middleware][0m
+[0m[1maws_ecr_lifecycle_policy.be_metaverse_lifecycle_policy: Refreshing state... [id=be-metaverse][0m
+[0m[1maws_ecr_repository_policy.be_metaverse_image_policy: Refreshing state... [id=be-metaverse][0m
+[0m[1maws_ecr_lifecycle_policy.be_marketplace_lifecycle_policy: Refreshing state... [id=be-marketplace][0m
+[0m[1maws_ecr_repository_policy.be_marketplace_image_policy: Refreshing state... [id=be-marketplace][0m
+[0m[1maws_ecr_repository_policy.be_search_image_policy: Refreshing state... [id=be-search][0m
+[0m[1maws_ecr_lifecycle_policy.be_search_lifecycle_policy: Refreshing state... [id=be-search][0m
+[0m[1maws_kms_alias.redis: Refreshing state... [id=alias/kms-ue2-stg-redis][0m
+[0m[1maws_kms_alias.rds: Refreshing state... [id=alias/kms-ue2-stg-rds][0m
+[0m[1maws_iam_role.ec2_role: Refreshing state... [id=ec2-role][0m
+[0m[1maws_ecr_repository_policy.be_launchpadruntime_image_policy: Refreshing state... [id=be-launchpadruntime][0m
+[0m[1maws_ecr_lifecycle_policy.be_launchpadruntime_lifecycle_policy: Refreshing state... [id=be-launchpadruntime][0m
+[0m[1maws_ecr_repository_policy.be_systemadmin_image_policy: Refreshing state... [id=be-systemadmin][0m
+[0m[1maws_ecr_lifecycle_policy.be_systemadmin_lifecycle_policy: Refreshing state... [id=be-systemadmin][0m
+[0m[1maws_s3_bucket_public_access_block.portfolio_bucket: Refreshing state... [id=s3-ue2-stg-naemo-portfolio][0m
+[0m[1mdata.aws_iam_policy_document.allow_acess_extension_portfolio_bucket: Reading...[0m[0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.portfolio_bucket: Refreshing state... [id=s3-ue2-stg-naemo-portfolio][0m
+[0m[1mdata.aws_iam_policy_document.allow_acess_extension_portfolio_bucket: Read complete after 0s [id=513376039][0m
+[0m[1maws_s3_bucket_ownership_controls.portfolio_bucket: Refreshing state... [id=s3-ue2-stg-naemo-portfolio][0m
+[0m[1mdata.template_file.portfolio_bucket_s3_secure_transport: Reading...[0m[0m
+[0m[1mdata.template_file.portfolio_bucket_s3_secure_transport: Read complete after 0s [id=46dc3f136542eaa24468c597ed90ec5bd5c601877df3a9e721314572e10b66c7][0m
+[0m[1maws_s3_bucket_cors_configuration.portfolio_bucket: Refreshing state... [id=s3-ue2-stg-naemo-portfolio][0m
+[0m[1mdata.terraform_remote_state.network: Reading...[0m[0m
+[0m[1mdata.terraform_remote_state.comm_an2: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.ec2_policy: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.ec2_policy: Read complete after 0s [id=3070540957][0m
+[0m[1mdata.terraform_remote_state.network_an2: Reading...[0m[0m
+[0m[1mdata.template_file.collection_bucket_s3_secure_transport: Reading...[0m[0m
+[0m[1mdata.template_file.collection_bucket_s3_secure_transport: Read complete after 0s [id=81c09ebba6ab2b1f7cddae738635c99fd18994c93a733b39a5b3cfcecef75d0b][0m
+[0m[1mdata.aws_iam_policy_document.allow_acess_extension_collection_bucket: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.allow_acess_extension_collection_bucket: Read complete after 0s [id=804589517][0m
+[0m[1maws_s3_bucket_cors_configuration.collection_bucket: Refreshing state... [id=s3-ue2-stg-naemo-collection][0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.collection_bucket: Refreshing state... [id=s3-ue2-stg-naemo-collection][0m
+[0m[1maws_s3_bucket_ownership_controls.collection_bucket: Refreshing state... [id=s3-ue2-stg-naemo-collection][0m
+[0m[1mdata.aws_iam_policy_document.allow_acess_collection_bucket_from_unity: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.allow_acess_collection_bucket_from_unity: Read complete after 0s [id=2026193286][0m
+[0m[1maws_s3_bucket_public_access_block.collection_bucket: Refreshing state... [id=s3-ue2-stg-naemo-collection][0m
+[0m[1mdata.terraform_remote_state.network_an2: Read complete after 1s[0m
+[0m[1mdata.aws_iam_policy_document.allow_acess_extension_member_bucket: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.allow_acess_extension_member_bucket: Read complete after 0s [id=3719168730][0m
+[0m[1maws_s3_bucket_public_access_block.member_bucket: Refreshing state... [id=s3-ue2-stg-naemo-member][0m
+[0m[1mdata.aws_iam_policy_document.allow_acess_member_bucket_from_unity: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.allow_acess_member_bucket_from_unity: Read complete after 0s [id=646960527][0m
+[0m[1maws_s3_bucket_ownership_controls.member_bucket: Refreshing state... [id=s3-ue2-stg-naemo-member][0m
+[0m[1mdata.terraform_remote_state.comm_an2: Read complete after 1s[0m
+[0m[1mdata.template_file.member_bucket_s3_secure_transport: Reading...[0m[0m
+[0m[1mdata.template_file.member_bucket_s3_secure_transport: Read complete after 0s [id=27f3f96b88eedb0b120244616b9aea73491648fc99c6d3402ffb7e90f988135c][0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.member_bucket: Refreshing state... [id=s3-ue2-stg-naemo-member][0m
+[0m[1maws_s3_bucket_cors_configuration.member_bucket: Refreshing state... [id=s3-ue2-stg-naemo-member][0m
+[0m[1maws_ecr_lifecycle_policy.sol_batch_lifecycle_policy: Refreshing state... [id=sol-batch][0m
+[0m[1maws_ecr_repository_policy.sol_batch_image_policy: Refreshing state... [id=sol-batch][0m
+[0m[1maws_s3_bucket_ownership_controls.fe-systemadmin_bucket: Refreshing state... [id=s3-ue2-stg-naemo-fe-systemadmin][0m
+[0m[1maws_s3_bucket_public_access_block.fe-systemadmin_bucket: Refreshing state... [id=s3-ue2-stg-naemo-fe-systemadmin][0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.fe-systemadmin_bucket: Refreshing state... [id=s3-ue2-stg-naemo-fe-systemadmin][0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.launchpad_bucket: Refreshing state... [id=s3-ue2-stg-naemo-launchpad][0m
+[0m[1maws_s3_bucket_cors_configuration.launchpad_bucket: Refreshing state... [id=s3-ue2-stg-naemo-launchpad][0m
+[0m[1maws_s3_bucket_ownership_controls.launchpad_bucket: Refreshing state... [id=s3-ue2-stg-naemo-launchpad][0m
+[0m[1mdata.template_file.launchpad_bucket_s3_secure_transport: Reading...[0m[0m
+[0m[1mdata.template_file.launchpad_bucket_s3_secure_transport: Read complete after 0s [id=57c222ae77e90737be0898acee62537c52d928566f1cc547ad7f070fd03be9ab][0m
+[0m[1maws_s3_bucket_public_access_block.launchpad_bucket: Refreshing state... [id=s3-ue2-stg-naemo-launchpad][0m
+[0m[1mdata.aws_iam_policy_document.allow_acess_extension_launchpad_bucket: Reading...[0m[0m
+[0m[1mdata.template_file.nft_bucket_s3_secure_transport: Reading...[0m[0m
+[0m[1mdata.template_file.nft_bucket_s3_secure_transport: Read complete after 0s [id=0f94ceafa5772232d364cb5df823271466f44c94c0acd0c016cb7aa97843c113][0m
+[0m[1mdata.aws_iam_policy_document.allow_acess_extension_launchpad_bucket: Read complete after 0s [id=1879138563][0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.nft_bucket: Refreshing state... [id=s3-ue2-stg-naemo-nft][0m
+[0m[1maws_s3_bucket_ownership_controls.nft_bucket: Refreshing state... [id=s3-ue2-stg-naemo-nft][0m
+[0m[1mdata.aws_iam_policy_document.allow_acess_nft_bucket_from_unity: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.allow_acess_nft_bucket_from_unity: Read complete after 0s [id=3519802183][0m
+[0m[1maws_s3_bucket_public_access_block.nft_bucket: Refreshing state... [id=s3-ue2-stg-naemo-nft][0m
+[0m[1mdata.aws_iam_policy_document.allow_acess_extension_nft_bucket: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.allow_acess_extension_nft_bucket: Read complete after 0s [id=1357027095][0m
+[0m[1maws_s3_bucket_cors_configuration.nft_bucket: Refreshing state... [id=s3-ue2-stg-naemo-nft][0m
+[0m[1maws_s3_bucket_public_access_block.heap_dump_bucket: Refreshing state... [id=s3-ue2-stg-naemo-heap-dump][0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.heap_dump_bucket: Refreshing state... [id=s3-ue2-stg-naemo-heap-dump][0m
+[0m[1maws_s3_bucket_cors_configuration.heap_dump_bucket: Refreshing state... [id=s3-ue2-stg-naemo-heap-dump][0m
+[0m[1mdata.template_file.heap_dump_bucket_s3_secure_transport: Reading...[0m[0m
+[0m[1mdata.template_file.heap_dump_bucket_s3_secure_transport: Read complete after 0s [id=d3faba97611e0e3e42222f35e929f58854daa7c264def4ebf5fcbe6c5c416b7e][0m
+[0m[1maws_s3_bucket_ownership_controls.heap_dump_bucket: Refreshing state... [id=s3-ue2-stg-naemo-heap-dump][0m
+[0m[1maws_s3_bucket_ownership_controls.fe-marketplace_bucket: Refreshing state... [id=s3-ue2-stg-naemo-fe-marketplace][0m
+[0m[1mdata.aws_iam_policy_document.fe-marketplace_bucket: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.fe-marketplace_bucket: Read complete after 0s [id=2974495207][0m
+[0m[1mdata.template_file.fe-marketplace_bucket_s3_secure_transport: Reading...[0m[0m
+[0m[1mdata.template_file.fe-marketplace_bucket_s3_secure_transport: Read complete after 0s [id=9274847faf4ea803a683f2f0ea76ee1dd9060094e8477fc1ea2384d7e6a91849][0m
+[0m[1maws_s3_bucket_public_access_block.fe-marketplace_bucket: Refreshing state... [id=s3-ue2-stg-naemo-fe-marketplace][0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.fe-marketplace_bucket: Refreshing state... [id=s3-ue2-stg-naemo-fe-marketplace][0m
+[0m[1mdata.aws_iam_policy_document.portfolio_bucket_policy: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.portfolio_bucket_policy: Read complete after 0s [id=1637841787][0m
+[0m[1maws_kms_key.ec2: Refreshing state... [id=4af51479-73c7-42b3-9174-fa0926571049][0m
+[0m[1mdata.aws_iam_policy_document.member_bucket_policy: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.collection_bucket_policy: Reading...[0m[0m
+[0m[1maws_iam_instance_profile.ec2_profile: Refreshing state... [id=ec2-profile][0m
+[0m[1mdata.aws_iam_policy_document.collection_bucket_policy: Read complete after 0s [id=1262932398][0m
+[0m[1mdata.aws_iam_policy_document.member_bucket_policy: Read complete after 0s [id=1349864233][0m
+[0m[1maws_s3_bucket_ownership_controls.fe-creator_bucket: Refreshing state... [id=s3-ue2-stg-naemo-fe-creator][0m
+[0m[1mdata.aws_iam_policy_document.launchpad_bucket_policy: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.launchpad_bucket_policy: Read complete after 0s [id=3241255838][0m
+[0m[1maws_s3_bucket_public_access_block.fe-creator_bucket: Refreshing state... [id=s3-ue2-stg-naemo-fe-creator][0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.fe-creator_bucket: Refreshing state... [id=s3-ue2-stg-naemo-fe-creator][0m
+[0m[1mdata.template_file.fe-creator_bucket_s3_secure_transport: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.fe-creator_bucket: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.nft_bucket_policy: Reading...[0m[0m
+[0m[1mdata.template_file.fe-creator_bucket_s3_secure_transport: Read complete after 0s [id=069e3dc33f78df979fc7d3c51927f55cfb257de9ee879f97ac905b68a2db2e04][0m
+[0m[1mdata.aws_iam_policy_document.heap_dump_bucket_policy: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.nft_bucket_policy: Read complete after 0s [id=3952254060][0m
+[0m[1mdata.aws_iam_policy_document.fe-creator_bucket: Read complete after 0s [id=2905550959][0m
+[0m[1mdata.aws_iam_policy_document.heap_dump_bucket_policy: Read complete after 0s [id=3484713054][0m
+[0m[1maws_s3_bucket_policy.portfolio_bucket: Refreshing state... [id=s3-ue2-stg-naemo-portfolio][0m
+[0m[1mdata.aws_iam_policy_document.fe-marketplace_bucket_policy: Reading...[0m[0m
+[0m[1maws_s3_bucket_policy.collection_bucket: Refreshing state... [id=s3-ue2-stg-naemo-collection][0m
+[0m[1mdata.aws_iam_policy_document.fe-marketplace_bucket_policy: Read complete after 0s [id=2019760677][0m
+[0m[1maws_s3_bucket_policy.member_bucket: Refreshing state... [id=s3-ue2-stg-naemo-member][0m
+[0m[1maws_s3_bucket_policy.launchpad_bucket: Refreshing state... [id=s3-ue2-stg-naemo-launchpad][0m
+[0m[1maws_s3_bucket_policy.nft_bucket: Refreshing state... [id=s3-ue2-stg-naemo-nft][0m
+[0m[1mdata.aws_iam_policy_document.fe-creator_bucket_policy: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.fe-creator_bucket_policy: Read complete after 0s [id=3307194119][0m
+[0m[1maws_s3_bucket_policy.heap_dump_bucket: Refreshing state... [id=s3-ue2-stg-naemo-heap-dump][0m
+[0m[1maws_s3_bucket_policy.fe-marketplace_bucket: Refreshing state... [id=s3-ue2-stg-naemo-fe-marketplace][0m
+[0m[1maws_s3_bucket_policy.fe-creator_bucket: Refreshing state... [id=s3-ue2-stg-naemo-fe-creator][0m
+[0m[1maws_ebs_default_kms_key.ebs_kms: Refreshing state... [id=arn:aws:kms:us-east-2:087942668956:key/4af51479-73c7-42b3-9174-fa0926571049][0m
+[0m[1maws_kms_alias.ec2: Refreshing state... [id=alias/kms-ue2-stg-ec2][0m
+[0m[1mdata.terraform_remote_state.network: Read complete after 4s[0m
+[0m[1maws_security_group.bcs_ngrinder_sg[0]: Refreshing state... [id=sg-05508b66206a20044][0m
+[0m[1maws_security_group.management_sg: Refreshing state... [id=sg-0ade78da29b2090a5][0m
+[0m[1maws_s3_bucket_policy.fe-systemadmin_bucket: Refreshing state... [id=s3-ue2-stg-naemo-fe-systemadmin][0m
+[0m[1maws_security_group.lenamaneger_sg: Refreshing state... [id=sg-0a201e03f977f99d7][0m
+[0m[1maws_security_group.search_sg: Refreshing state... [id=sg-058c58ea7ed9f50d5][0m
+[0m[1maws_security_group.tuna_sg: Refreshing state... [id=sg-001ec49fb17755aa7][0m
+[0m[1maws_security_group_rule.allow_outbound_ngrinder[0]: Refreshing state... [id=sgrule-1796482901][0m
+[0m[1maws_security_group_rule.allow_inbound_management_ssh: Refreshing state... [id=sgrule-3169734672][0m
+[0m[1maws_security_group_rule.allow_outbound_management: Refreshing state... [id=sgrule-3593127046][0m
+[0m[1maws_instance.ngrinder[0]: Refreshing state... [id=i-0423afcfdebf8a0d6][0m
+[0m[1maws_instance.ngrinder[2]: Refreshing state... [id=i-00a4fbf3220999fe7][0m
+[0m[1maws_instance.ngrinder[3]: Refreshing state... [id=i-0b641645ec7760bad][0m
+[0m[1maws_instance.ngrinder[1]: Refreshing state... [id=i-0726d47e71347af9f][0m
+[0m[1maws_security_group_rule.allow_inbound_tcp: Refreshing state... [id=sgrule-1689029674][0m
+[0m[1maws_security_group_rule.allow_outbound_all: Refreshing state... [id=sgrule-3998690485][0m
+[0m[1maws_security_group_rule.allow_web_inbound_http: Refreshing state... [id=sgrule-456015337][0m
+[0m[1maws_instance.lenamaneger: Refreshing state... [id=i-0b86624540b427462][0m
+[0m[1maws_security_group_rule.allow_inbound_udp: Refreshing state... [id=sgrule-1988554716][0m
+[0m[1maws_security_group_rule.allow_inbound_vpn_7000: Refreshing state... [id=sgrule-2434403314][0m
+[0m[1maws_security_group_rule.allow_outbound_search: Refreshing state... [id=sgrule-953630687][0m
+[0m[1maws_security_group_rule.allow_inbound_vpn_8080: Refreshing state... [id=sgrule-3493615254][0m
+[0m[1maws_security_group_rule.allow_inbound_vpn_8081: Refreshing state... [id=sgrule-2545540740][0m
+[0m[1maws_security_group_rule.allow_inbound_vpn_7800: Refreshing state... [id=sgrule-2525363284][0m
+[0m[1maws_instance.search: Refreshing state... [id=i-089d6821a468ff5d5][0m
+[0m[1maws_security_group_rule.allow_inbound_vpn_8888: Refreshing state... [id=sgrule-2250042211][0m
+[0m[1maws_security_group_rule.allow_udp_inbound_tuna_server: Refreshing state... [id=sgrule-1158067111][0m
+[0m[1maws_security_group_rule.allow_inbound_tuna_http: Refreshing state... [id=sgrule-2049663347][0m
+[0m[1maws_security_group_rule.allow_udp_inbound_tuna_eks: Refreshing state... [id=sgrule-1444899384][0m
+[0m[1maws_instance.tuna: Refreshing state... [id=i-073a9c5715e6a6835][0m
+[0m[1maws_security_group_rule.allow_tcp_inbound_tuna_eks: Refreshing state... [id=sgrule-1144326606][0m
+[0m[1maws_security_group_rule.allow_tcp_inbound_tuna_server: Refreshing state... [id=sgrule-2322744312][0m
+[0m[1maws_security_group_rule.allow_outbound_tuna_all: Refreshing state... [id=sgrule-3513995261][0m
+[0m[1maws_route53_record.private_ngrinder_record[0]: Refreshing state... [id=Z0255917ZL2FMT3937QY_nagent1.mgmt.stg.naemo.io_A][0m
+[0m[1maws_route53_record.private_ngrinder_record[1]: Refreshing state... [id=Z0255917ZL2FMT3937QY_nagent2.mgmt.stg.naemo.io_A][0m
+[0m[1maws_route53_record.private_ngrinder_record[2]: Refreshing state... [id=Z0255917ZL2FMT3937QY_nagent3.mgmt.stg.naemo.io_A][0m
+[0m[1maws_route53_record.private_ngrinder_record[3]: Refreshing state... [id=Z0255917ZL2FMT3937QY_nagent4.mgmt.stg.naemo.io_A][0m
+[0m[1maws_route53_record.private_lenamanager_record: Refreshing state... [id=Z0255917ZL2FMT3937QY_lena.mgmt.stg.naemo.io_A][0m
+[0m[1maws_route53_record.private_search_record: Refreshing state... [id=Z0255917ZL2FMT3937QY_search.mgmt.stg.naemo.io_A][0m
+[0m[1maws_route53_record.private_tuna_record: Refreshing state... [id=Z0255917ZL2FMT3937QY_tuna.mgmt.stg.naemo.io_A][0m
+[0m
+[1m[36mNote:[0m[1m Objects have changed outside of Terraform[0m
+
+[0mTerraform detected the following changes made outside of Terraform since the
+last "terraform apply" which may have affected this plan:
+
+[1m  # aws_cognito_user_pool.cognito_systemadmin[0m has been deleted[0m[0m
+[0m  [31m-[0m[0m resource "aws_cognito_user_pool" "cognito_systemadmin" {
+      [31m-[0m [0m[1m[0mid[0m[0m                        = "us-east-2_vJA9Nxqvq" [90m->[0m [0m[90mnull[0m[0m
+        [1m[0mname[0m[0m                      = "naemo-systemadmin"
+        [1m[0mtags[0m[0m                      = {
+            "BusinessOwnerPrimary"        = "infra@bithumbmeta.io"
+            "Name"                        = "cog-ue2-stg-naemo-systemadmin"
+            "OperationLevel"              = "2"
+            "SupportPlatformOwnerPrimary" = "BithumMeta"
+            "System"                      = "systemadmin"
+        }
+        [90m# (10 unchanged attributes hidden)[0m[0m
+
+        [90m# (8 unchanged blocks hidden)[0m[0m
+    }
+
+[1m  # aws_instance.ngrinder[0][0m has been deleted[0m[0m
+[0m  [31m-[0m[0m resource "aws_instance" "ngrinder" {
+      [31m-[0m [0m[1m[0mami[0m[0m                                  = "ami-08e5d40c2c48baffc" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0marn[0m[0m                                  = "arn:aws:ec2:us-east-2:087942668956:instance/i-0423afcfdebf8a0d6" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0massociate_public_ip_address[0m[0m          = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mavailability_zone[0m[0m                    = "us-east-2a" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mcpu_core_count[0m[0m                       = 2 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mcpu_threads_per_core[0m[0m                 = 2 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mdisable_api_termination[0m[0m              = true [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mebs_optimized[0m[0m                        = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mget_password_data[0m[0m                    = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mhibernation[0m[0m                          = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0miam_instance_profile[0m[0m                 = "ec2-profile" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mid[0m[0m                                   = "i-0423afcfdebf8a0d6" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0minstance_initiated_shutdown_behavior[0m[0m = "stop" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0minstance_state[0m[0m                       = "running" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0minstance_type[0m[0m                        = "c6i.xlarge" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mipv6_address_count[0m[0m                   = 0 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mipv6_addresses[0m[0m                       = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mkey_name[0m[0m                             = "ec2-key" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mmonitoring[0m[0m                           = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mprimary_network_interface_id[0m[0m         = "eni-0675aa8ee32fb268a" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mprivate_dns[0m[0m                          = "ip-10-0-7-58.us-east-2.compute.internal" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mprivate_ip[0m[0m                           = "10.0.7.58" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msecondary_private_ips[0m[0m                = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msecurity_groups[0m[0m                      = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msource_dest_check[0m[0m                    = true [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msubnet_id[0m[0m                            = "subnet-0b648bb5be691f06c" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtags[0m[0m                                 = {
+          [31m-[0m [0m"Backup"                      = "True"
+          [31m-[0m [0m"BusinessOwnerPrimary"        = "infra@bithumbmeta.io"
+          [31m-[0m [0m"DEV_GRP"                     = "bmeta/bcs/stg"
+          [31m-[0m [0m"Hiware"                      = "True"
+          [31m-[0m [0m"Name"                        = "ec2-ue2-stg-naemo-bcs-ngrinder1"
+          [31m-[0m [0m"OS_info"                     = "AWS LINUX AMI 2"
+          [31m-[0m [0m"OperationLevel"              = "2"
+          [31m-[0m [0m"Protocol"                    = "SSH_22|SFTP_22"
+          [31m-[0m [0m"SupportPlatformOwnerPrimary" = "BithumMeta"
+          [31m-[0m [0m"System"                      = "bcs"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtags_all[0m[0m                             = {
+          [31m-[0m [0m"Backup"                      = "True"
+          [31m-[0m [0m"BusinessOwnerPrimary"        = "infra@bithumbmeta.io"
+          [31m-[0m [0m"DEV_GRP"                     = "bmeta/bcs/stg"
+          [31m-[0m [0m"Environment"                 = "stg"
+          [31m-[0m [0m"Hiware"                      = "True"
+          [31m-[0m [0m"Name"                        = "ec2-ue2-stg-naemo-bcs-ngrinder1"
+          [31m-[0m [0m"OS_info"                     = "AWS LINUX AMI 2"
+          [31m-[0m [0m"OperationLevel"              = "2"
+          [31m-[0m [0m"Protocol"                    = "SSH_22|SFTP_22"
+          [31m-[0m [0m"SupportPlatformOwnerPrimary" = "BithumMeta"
+          [31m-[0m [0m"System"                      = "bcs"
+          [31m-[0m [0m"Terraform"                   = "True"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtenancy[0m[0m                              = "default" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0muser_data[0m[0m                            = "6c0df54e3d226020598abf3f0650e10fae33b118" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0muser_data_replace_on_change[0m[0m          = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mvolume_tags[0m[0m                          = {
+          [31m-[0m [0m"BusinessOwnerPrimary"        = "infra@bithumbmeta.io"
+          [31m-[0m [0m"Name"                        = "ec2-ue2-stg-naemo-bcs-ngrinder1"
+          [31m-[0m [0m"OperationLevel"              = "2"
+          [31m-[0m [0m"SupportPlatformOwnerPrimary" = "BithumMeta"
+          [31m-[0m [0m"System"                      = "bcs"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mvpc_security_group_ids[0m[0m               = [
+          [31m-[0m [0m"sg-05508b66206a20044",
+          [31m-[0m [0m"sg-0ade78da29b2090a5",
+        ] [90m->[0m [0m[90mnull[0m[0m
+
+      [31m-[0m [0mcapacity_reservation_specification {
+          [31m-[0m [0m[1m[0mcapacity_reservation_preference[0m[0m = "open" [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [31m-[0m [0mebs_block_device {
+          [31m-[0m [0m[1m[0mdelete_on_termination[0m[0m = true [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mdevice_name[0m[0m           = "/dev/sdf" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mencrypted[0m[0m             = true [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0miops[0m[0m                  = 3000 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mkms_key_id[0m[0m            = "arn:aws:kms:us-east-2:087942668956:key/4af51479-73c7-42b3-9174-fa0926571049" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0msnapshot_id[0m[0m           = "snap-074ca7832637ab0fb" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mtags[0m[0m                  = {} [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mthroughput[0m[0m            = 125 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_id[0m[0m             = "vol-0cf8f00de17697cd4" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_size[0m[0m           = 50 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_type[0m[0m           = "gp3" [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [31m-[0m [0menclave_options {
+          [31m-[0m [0m[1m[0menabled[0m[0m = false [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [31m-[0m [0mmetadata_options {
+          [31m-[0m [0m[1m[0mhttp_endpoint[0m[0m               = "enabled" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mhttp_put_response_hop_limit[0m[0m = 1 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mhttp_tokens[0m[0m                 = "optional" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0minstance_metadata_tags[0m[0m      = "disabled" [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [31m-[0m [0mroot_block_device {
+          [31m-[0m [0m[1m[0mdelete_on_termination[0m[0m = true [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mdevice_name[0m[0m           = "/dev/xvda" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mencrypted[0m[0m             = true [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0miops[0m[0m                  = 3000 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mkms_key_id[0m[0m            = "arn:aws:kms:us-east-2:087942668956:key/4af51479-73c7-42b3-9174-fa0926571049" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mtags[0m[0m                  = {} [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mthroughput[0m[0m            = 125 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_id[0m[0m             = "vol-0d2bacd6c3e0134fa" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_size[0m[0m           = 8 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_type[0m[0m           = "gp3" [90m->[0m [0m[90mnull[0m[0m
+        }
+    }
+
+[1m  # aws_instance.ngrinder[1][0m has been deleted[0m[0m
+[0m  [31m-[0m[0m resource "aws_instance" "ngrinder" {
+      [31m-[0m [0m[1m[0mami[0m[0m                                  = "ami-08e5d40c2c48baffc" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0marn[0m[0m                                  = "arn:aws:ec2:us-east-2:087942668956:instance/i-0726d47e71347af9f" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0massociate_public_ip_address[0m[0m          = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mavailability_zone[0m[0m                    = "us-east-2b" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mcpu_core_count[0m[0m                       = 2 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mcpu_threads_per_core[0m[0m                 = 2 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mdisable_api_termination[0m[0m              = true [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mebs_optimized[0m[0m                        = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mget_password_data[0m[0m                    = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mhibernation[0m[0m                          = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0miam_instance_profile[0m[0m                 = "ec2-profile" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mid[0m[0m                                   = "i-0726d47e71347af9f" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0minstance_initiated_shutdown_behavior[0m[0m = "stop" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0minstance_state[0m[0m                       = "running" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0minstance_type[0m[0m                        = "c6i.xlarge" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mipv6_address_count[0m[0m                   = 0 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mipv6_addresses[0m[0m                       = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mkey_name[0m[0m                             = "ec2-key" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mmonitoring[0m[0m                           = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mprimary_network_interface_id[0m[0m         = "eni-012ba297b916f8818" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mprivate_dns[0m[0m                          = "ip-10-0-7-107.us-east-2.compute.internal" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mprivate_ip[0m[0m                           = "10.0.7.107" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msecondary_private_ips[0m[0m                = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msecurity_groups[0m[0m                      = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msource_dest_check[0m[0m                    = true [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msubnet_id[0m[0m                            = "subnet-04c858a4f8d74eddc" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtags[0m[0m                                 = {
+          [31m-[0m [0m"Backup"                      = "True"
+          [31m-[0m [0m"BusinessOwnerPrimary"        = "infra@bithumbmeta.io"
+          [31m-[0m [0m"DEV_GRP"                     = "bmeta/bcs/stg"
+          [31m-[0m [0m"Hiware"                      = "True"
+          [31m-[0m [0m"Name"                        = "ec2-ue2-stg-naemo-bcs-ngrinder2"
+          [31m-[0m [0m"OS_info"                     = "AWS LINUX AMI 2"
+          [31m-[0m [0m"OperationLevel"              = "2"
+          [31m-[0m [0m"Protocol"                    = "SSH_22|SFTP_22"
+          [31m-[0m [0m"SupportPlatformOwnerPrimary" = "BithumMeta"
+          [31m-[0m [0m"System"                      = "bcs"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtags_all[0m[0m                             = {
+          [31m-[0m [0m"Backup"                      = "True"
+          [31m-[0m [0m"BusinessOwnerPrimary"        = "infra@bithumbmeta.io"
+          [31m-[0m [0m"DEV_GRP"                     = "bmeta/bcs/stg"
+          [31m-[0m [0m"Environment"                 = "stg"
+          [31m-[0m [0m"Hiware"                      = "True"
+          [31m-[0m [0m"Name"                        = "ec2-ue2-stg-naemo-bcs-ngrinder2"
+          [31m-[0m [0m"OS_info"                     = "AWS LINUX AMI 2"
+          [31m-[0m [0m"OperationLevel"              = "2"
+          [31m-[0m [0m"Protocol"                    = "SSH_22|SFTP_22"
+          [31m-[0m [0m"SupportPlatformOwnerPrimary" = "BithumMeta"
+          [31m-[0m [0m"System"                      = "bcs"
+          [31m-[0m [0m"Terraform"                   = "True"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtenancy[0m[0m                              = "default" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0muser_data[0m[0m                            = "6c0df54e3d226020598abf3f0650e10fae33b118" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0muser_data_replace_on_change[0m[0m          = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mvolume_tags[0m[0m                          = {
+          [31m-[0m [0m"BusinessOwnerPrimary"        = "infra@bithumbmeta.io"
+          [31m-[0m [0m"Name"                        = "ec2-ue2-stg-naemo-bcs-ngrinder2"
+          [31m-[0m [0m"OperationLevel"              = "2"
+          [31m-[0m [0m"SupportPlatformOwnerPrimary" = "BithumMeta"
+          [31m-[0m [0m"System"                      = "bcs"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mvpc_security_group_ids[0m[0m               = [
+          [31m-[0m [0m"sg-05508b66206a20044",
+          [31m-[0m [0m"sg-0ade78da29b2090a5",
+        ] [90m->[0m [0m[90mnull[0m[0m
+
+      [31m-[0m [0mcapacity_reservation_specification {
+          [31m-[0m [0m[1m[0mcapacity_reservation_preference[0m[0m = "open" [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [31m-[0m [0mebs_block_device {
+          [31m-[0m [0m[1m[0mdelete_on_termination[0m[0m = true [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mdevice_name[0m[0m           = "/dev/sdf" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mencrypted[0m[0m             = true [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0miops[0m[0m                  = 3000 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mkms_key_id[0m[0m            = "arn:aws:kms:us-east-2:087942668956:key/4af51479-73c7-42b3-9174-fa0926571049" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0msnapshot_id[0m[0m           = "snap-074ca7832637ab0fb" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mtags[0m[0m                  = {} [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mthroughput[0m[0m            = 125 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_id[0m[0m             = "vol-0216dd86a7545fbb6" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_size[0m[0m           = 50 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_type[0m[0m           = "gp3" [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [31m-[0m [0menclave_options {
+          [31m-[0m [0m[1m[0menabled[0m[0m = false [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [31m-[0m [0mmetadata_options {
+          [31m-[0m [0m[1m[0mhttp_endpoint[0m[0m               = "enabled" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mhttp_put_response_hop_limit[0m[0m = 1 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mhttp_tokens[0m[0m                 = "optional" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0minstance_metadata_tags[0m[0m      = "disabled" [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [31m-[0m [0mroot_block_device {
+          [31m-[0m [0m[1m[0mdelete_on_termination[0m[0m = true [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mdevice_name[0m[0m           = "/dev/xvda" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mencrypted[0m[0m             = true [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0miops[0m[0m                  = 3000 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mkms_key_id[0m[0m            = "arn:aws:kms:us-east-2:087942668956:key/4af51479-73c7-42b3-9174-fa0926571049" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mtags[0m[0m                  = {} [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mthroughput[0m[0m            = 125 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_id[0m[0m             = "vol-0ee50858a46d28a13" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_size[0m[0m           = 8 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_type[0m[0m           = "gp3" [90m->[0m [0m[90mnull[0m[0m
+        }
+    }
+
+[1m  # aws_instance.ngrinder[2][0m has been deleted[0m[0m
+[0m  [31m-[0m[0m resource "aws_instance" "ngrinder" {
+      [31m-[0m [0m[1m[0mami[0m[0m                                  = "ami-08e5d40c2c48baffc" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0marn[0m[0m                                  = "arn:aws:ec2:us-east-2:087942668956:instance/i-00a4fbf3220999fe7" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0massociate_public_ip_address[0m[0m          = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mavailability_zone[0m[0m                    = "us-east-2a" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mcpu_core_count[0m[0m                       = 2 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mcpu_threads_per_core[0m[0m                 = 2 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mdisable_api_termination[0m[0m              = true [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mebs_optimized[0m[0m                        = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mget_password_data[0m[0m                    = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mhibernation[0m[0m                          = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0miam_instance_profile[0m[0m                 = "ec2-profile" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mid[0m[0m                                   = "i-00a4fbf3220999fe7" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0minstance_initiated_shutdown_behavior[0m[0m = "stop" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0minstance_state[0m[0m                       = "running" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0minstance_type[0m[0m                        = "c6i.xlarge" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mipv6_address_count[0m[0m                   = 0 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mipv6_addresses[0m[0m                       = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mkey_name[0m[0m                             = "ec2-key" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mmonitoring[0m[0m                           = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mprimary_network_interface_id[0m[0m         = "eni-0293a9f842fa93353" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mprivate_dns[0m[0m                          = "ip-10-0-7-45.us-east-2.compute.internal" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mprivate_ip[0m[0m                           = "10.0.7.45" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msecondary_private_ips[0m[0m                = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msecurity_groups[0m[0m                      = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msource_dest_check[0m[0m                    = true [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msubnet_id[0m[0m                            = "subnet-0b648bb5be691f06c" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtags[0m[0m                                 = {
+          [31m-[0m [0m"Backup"                      = "True"
+          [31m-[0m [0m"BusinessOwnerPrimary"        = "infra@bithumbmeta.io"
+          [31m-[0m [0m"DEV_GRP"                     = "bmeta/bcs/stg"
+          [31m-[0m [0m"Hiware"                      = "True"
+          [31m-[0m [0m"Name"                        = "ec2-ue2-stg-naemo-bcs-ngrinder3"
+          [31m-[0m [0m"OS_info"                     = "AWS LINUX AMI 2"
+          [31m-[0m [0m"OperationLevel"              = "2"
+          [31m-[0m [0m"Protocol"                    = "SSH_22|SFTP_22"
+          [31m-[0m [0m"SupportPlatformOwnerPrimary" = "BithumMeta"
+          [31m-[0m [0m"System"                      = "bcs"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtags_all[0m[0m                             = {
+          [31m-[0m [0m"Backup"                      = "True"
+          [31m-[0m [0m"BusinessOwnerPrimary"        = "infra@bithumbmeta.io"
+          [31m-[0m [0m"DEV_GRP"                     = "bmeta/bcs/stg"
+          [31m-[0m [0m"Environment"                 = "stg"
+          [31m-[0m [0m"Hiware"                      = "True"
+          [31m-[0m [0m"Name"                        = "ec2-ue2-stg-naemo-bcs-ngrinder3"
+          [31m-[0m [0m"OS_info"                     = "AWS LINUX AMI 2"
+          [31m-[0m [0m"OperationLevel"              = "2"
+          [31m-[0m [0m"Protocol"                    = "SSH_22|SFTP_22"
+          [31m-[0m [0m"SupportPlatformOwnerPrimary" = "BithumMeta"
+          [31m-[0m [0m"System"                      = "bcs"
+          [31m-[0m [0m"Terraform"                   = "True"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtenancy[0m[0m                              = "default" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0muser_data[0m[0m                            = "6c0df54e3d226020598abf3f0650e10fae33b118" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0muser_data_replace_on_change[0m[0m          = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mvolume_tags[0m[0m                          = {
+          [31m-[0m [0m"BusinessOwnerPrimary"        = "infra@bithumbmeta.io"
+          [31m-[0m [0m"Name"                        = "ec2-ue2-stg-naemo-bcs-ngrinder3"
+          [31m-[0m [0m"OperationLevel"              = "2"
+          [31m-[0m [0m"SupportPlatformOwnerPrimary" = "BithumMeta"
+          [31m-[0m [0m"System"                      = "bcs"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mvpc_security_group_ids[0m[0m               = [
+          [31m-[0m [0m"sg-05508b66206a20044",
+          [31m-[0m [0m"sg-0ade78da29b2090a5",
+        ] [90m->[0m [0m[90mnull[0m[0m
+
+      [31m-[0m [0mcapacity_reservation_specification {
+          [31m-[0m [0m[1m[0mcapacity_reservation_preference[0m[0m = "open" [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [31m-[0m [0mebs_block_device {
+          [31m-[0m [0m[1m[0mdelete_on_termination[0m[0m = true [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mdevice_name[0m[0m           = "/dev/sdf" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mencrypted[0m[0m             = true [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0miops[0m[0m                  = 3000 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mkms_key_id[0m[0m            = "arn:aws:kms:us-east-2:087942668956:key/4af51479-73c7-42b3-9174-fa0926571049" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0msnapshot_id[0m[0m           = "snap-074ca7832637ab0fb" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mtags[0m[0m                  = {} [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mthroughput[0m[0m            = 125 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_id[0m[0m             = "vol-078af1262a18996f8" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_size[0m[0m           = 50 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_type[0m[0m           = "gp3" [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [31m-[0m [0menclave_options {
+          [31m-[0m [0m[1m[0menabled[0m[0m = false [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [31m-[0m [0mmetadata_options {
+          [31m-[0m [0m[1m[0mhttp_endpoint[0m[0m               = "enabled" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mhttp_put_response_hop_limit[0m[0m = 1 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mhttp_tokens[0m[0m                 = "optional" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0minstance_metadata_tags[0m[0m      = "disabled" [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [31m-[0m [0mroot_block_device {
+          [31m-[0m [0m[1m[0mdelete_on_termination[0m[0m = true [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mdevice_name[0m[0m           = "/dev/xvda" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mencrypted[0m[0m             = true [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0miops[0m[0m                  = 3000 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mkms_key_id[0m[0m            = "arn:aws:kms:us-east-2:087942668956:key/4af51479-73c7-42b3-9174-fa0926571049" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mtags[0m[0m                  = {} [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mthroughput[0m[0m            = 125 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_id[0m[0m             = "vol-08a0cc4e045107c80" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_size[0m[0m           = 8 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_type[0m[0m           = "gp3" [90m->[0m [0m[90mnull[0m[0m
+        }
+    }
+
+[1m  # aws_instance.ngrinder[3][0m has been deleted[0m[0m
+[0m  [31m-[0m[0m resource "aws_instance" "ngrinder" {
+      [31m-[0m [0m[1m[0mami[0m[0m                                  = "ami-08e5d40c2c48baffc" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0marn[0m[0m                                  = "arn:aws:ec2:us-east-2:087942668956:instance/i-0b641645ec7760bad" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0massociate_public_ip_address[0m[0m          = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mavailability_zone[0m[0m                    = "us-east-2b" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mcpu_core_count[0m[0m                       = 2 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mcpu_threads_per_core[0m[0m                 = 2 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mdisable_api_termination[0m[0m              = true [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mebs_optimized[0m[0m                        = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mget_password_data[0m[0m                    = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mhibernation[0m[0m                          = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0miam_instance_profile[0m[0m                 = "ec2-profile" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mid[0m[0m                                   = "i-0b641645ec7760bad" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0minstance_initiated_shutdown_behavior[0m[0m = "stop" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0minstance_state[0m[0m                       = "running" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0minstance_type[0m[0m                        = "c6i.xlarge" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mipv6_address_count[0m[0m                   = 0 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mipv6_addresses[0m[0m                       = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mkey_name[0m[0m                             = "ec2-key" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mmonitoring[0m[0m                           = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mprimary_network_interface_id[0m[0m         = "eni-0a31b30eb37d95fb1" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mprivate_dns[0m[0m                          = "ip-10-0-7-68.us-east-2.compute.internal" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mprivate_ip[0m[0m                           = "10.0.7.68" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msecondary_private_ips[0m[0m                = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msecurity_groups[0m[0m                      = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msource_dest_check[0m[0m                    = true [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msubnet_id[0m[0m                            = "subnet-04c858a4f8d74eddc" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtags[0m[0m                                 = {
+          [31m-[0m [0m"Backup"                      = "True"
+          [31m-[0m [0m"BusinessOwnerPrimary"        = "infra@bithumbmeta.io"
+          [31m-[0m [0m"DEV_GRP"                     = "bmeta/bcs/stg"
+          [31m-[0m [0m"Hiware"                      = "True"
+          [31m-[0m [0m"Name"                        = "ec2-ue2-stg-naemo-bcs-ngrinder4"
+          [31m-[0m [0m"OS_info"                     = "AWS LINUX AMI 2"
+          [31m-[0m [0m"OperationLevel"              = "2"
+          [31m-[0m [0m"Protocol"                    = "SSH_22|SFTP_22"
+          [31m-[0m [0m"SupportPlatformOwnerPrimary" = "BithumMeta"
+          [31m-[0m [0m"System"                      = "bcs"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtags_all[0m[0m                             = {
+          [31m-[0m [0m"Backup"                      = "True"
+          [31m-[0m [0m"BusinessOwnerPrimary"        = "infra@bithumbmeta.io"
+          [31m-[0m [0m"DEV_GRP"                     = "bmeta/bcs/stg"
+          [31m-[0m [0m"Environment"                 = "stg"
+          [31m-[0m [0m"Hiware"                      = "True"
+          [31m-[0m [0m"Name"                        = "ec2-ue2-stg-naemo-bcs-ngrinder4"
+          [31m-[0m [0m"OS_info"                     = "AWS LINUX AMI 2"
+          [31m-[0m [0m"OperationLevel"              = "2"
+          [31m-[0m [0m"Protocol"                    = "SSH_22|SFTP_22"
+          [31m-[0m [0m"SupportPlatformOwnerPrimary" = "BithumMeta"
+          [31m-[0m [0m"System"                      = "bcs"
+          [31m-[0m [0m"Terraform"                   = "True"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtenancy[0m[0m                              = "default" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0muser_data[0m[0m                            = "6c0df54e3d226020598abf3f0650e10fae33b118" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0muser_data_replace_on_change[0m[0m          = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mvolume_tags[0m[0m                          = {
+          [31m-[0m [0m"BusinessOwnerPrimary"        = "infra@bithumbmeta.io"
+          [31m-[0m [0m"Name"                        = "ec2-ue2-stg-naemo-bcs-ngrinder4"
+          [31m-[0m [0m"OperationLevel"              = "2"
+          [31m-[0m [0m"SupportPlatformOwnerPrimary" = "BithumMeta"
+          [31m-[0m [0m"System"                      = "bcs"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mvpc_security_group_ids[0m[0m               = [
+          [31m-[0m [0m"sg-05508b66206a20044",
+          [31m-[0m [0m"sg-0ade78da29b2090a5",
+        ] [90m->[0m [0m[90mnull[0m[0m
+
+      [31m-[0m [0mcapacity_reservation_specification {
+          [31m-[0m [0m[1m[0mcapacity_reservation_preference[0m[0m = "open" [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [31m-[0m [0mebs_block_device {
+          [31m-[0m [0m[1m[0mdelete_on_termination[0m[0m = true [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mdevice_name[0m[0m           = "/dev/sdf" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mencrypted[0m[0m             = true [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0miops[0m[0m                  = 3000 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mkms_key_id[0m[0m            = "arn:aws:kms:us-east-2:087942668956:key/4af51479-73c7-42b3-9174-fa0926571049" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0msnapshot_id[0m[0m           = "snap-074ca7832637ab0fb" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mtags[0m[0m                  = {} [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mthroughput[0m[0m            = 125 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_id[0m[0m             = "vol-073c4dda450f56ac1" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_size[0m[0m           = 50 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_type[0m[0m           = "gp3" [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [31m-[0m [0menclave_options {
+          [31m-[0m [0m[1m[0menabled[0m[0m = false [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [31m-[0m [0mmetadata_options {
+          [31m-[0m [0m[1m[0mhttp_endpoint[0m[0m               = "enabled" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mhttp_put_response_hop_limit[0m[0m = 1 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mhttp_tokens[0m[0m                 = "optional" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0minstance_metadata_tags[0m[0m      = "disabled" [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [31m-[0m [0mroot_block_device {
+          [31m-[0m [0m[1m[0mdelete_on_termination[0m[0m = true [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mdevice_name[0m[0m           = "/dev/xvda" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mencrypted[0m[0m             = true [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0miops[0m[0m                  = 3000 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mkms_key_id[0m[0m            = "arn:aws:kms:us-east-2:087942668956:key/4af51479-73c7-42b3-9174-fa0926571049" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mtags[0m[0m                  = {} [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mthroughput[0m[0m            = 125 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_id[0m[0m             = "vol-0fb175763d645d4e8" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_size[0m[0m           = 8 [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m[1m[0mvolume_type[0m[0m           = "gp3" [90m->[0m [0m[90mnull[0m[0m
+        }
+    }
+
+
+Unless you have made equivalent changes to your configuration, or ignored the
+relevant attributes using ignore_changes, the following plan may include
+actions to undo or respond to these changes.
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create
+  [33m~[0m update in-place
+  [31m-[0m destroy
+ [36m<=[0m read (data resources)
+[0m
+Terraform will perform the following actions:
+
+[1m  # data.aws_iam_policy_document.fe-systemadmin_bucket[0m will be read during apply[0m
+  # (depends on a resource or a module with changes pending)[0m
+[0m [36m<=[0m[0m data "aws_iam_policy_document" "fe-systemadmin_bucket" {
+      [32m+[0m [0m[1m[0mid[0m[0m   = (known after apply)
+      [32m+[0m [0m[1m[0mjson[0m[0m = (known after apply)
+
+      [32m+[0m [0mstatement {
+          [32m+[0m [0m[1m[0mactions[0m[0m   = [
+              [32m+[0m [0m"s3:GetObject",
+            ]
+          [32m+[0m [0m[1m[0meffect[0m[0m    = "Allow"
+          [32m+[0m [0m[1m[0mresources[0m[0m = [
+              [32m+[0m [0m"arn:aws:s3:::s3-ue2-stg-naemo-fe-systemadmin",
+              [32m+[0m [0m"arn:aws:s3:::s3-ue2-stg-naemo-fe-systemadmin/*",
+            ]
+
+          [32m+[0m [0mcondition {
+              [32m+[0m [0m[1m[0mtest[0m[0m     = "StringEquals"
+              [32m+[0m [0m[1m[0mvalues[0m[0m   = [
+                  [32m+[0m [0m"vpce-0f69f2cb51e22407f",
+                ]
+              [32m+[0m [0m[1m[0mvariable[0m[0m = "aws:SourceVpce"
+            }
+
+          [32m+[0m [0mprincipals {
+              [32m+[0m [0m[1m[0midentifiers[0m[0m = [
+                  [32m+[0m [0m"*",
+                ]
+              [32m+[0m [0m[1m[0mtype[0m[0m        = "AWS"
+            }
+        }
+    }
+
+[1m  # data.aws_iam_policy_document.fe-systemadmin_bucket_policy[0m will be read during apply[0m
+  # (config refers to values not yet known)[0m
+[0m [36m<=[0m[0m data "aws_iam_policy_document" "fe-systemadmin_bucket_policy" {
+      [32m+[0m [0m[1m[0mid[0m[0m                      = (known after apply)
+      [32m+[0m [0m[1m[0mjson[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0msource_policy_documents[0m[0m = [
+          [32m+[0m [0m(known after apply),
+          [32m+[0m [0m(known after apply),
+        ]
+    }
+
+[1m  # data.template_file.fe-systemadmin_bucket_s3_secure_transport[0m will be read during apply[0m
+  # (depends on a resource or a module with changes pending)[0m
+[0m [36m<=[0m[0m data "template_file" "fe-systemadmin_bucket_s3_secure_transport" {
+      [32m+[0m [0m[1m[0mid[0m[0m       = (known after apply)
+      [32m+[0m [0m[1m[0mrendered[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mtemplate[0m[0m = jsonencode(
+            {
+              [32m+[0m [0mStatement = [
+                  [32m+[0m [0m{
+                      [32m+[0m [0mAction    = "s3:*"
+                      [32m+[0m [0mCondition = {
+                          [32m+[0m [0mBool = {
+                              [32m+[0m [0m"aws:SecureTransport" = "false"
+                            }
+                        }
+                      [32m+[0m [0mEffect    = "Deny"
+                      [32m+[0m [0mPrincipal = "*"
+                      [32m+[0m [0mResource  = [
+                          [32m+[0m [0m"${resource}",
+                          [32m+[0m [0m"${resource}/*",
+                        ]
+                      [32m+[0m [0mSid       = "AllowSSLRequestsOnly"
+                    },
+                ]
+              [32m+[0m [0mVersion   = "2008-10-17"
+            }
+        )
+      [32m+[0m [0m[1m[0mvars[0m[0m     = {
+          [32m+[0m [0m"resource" = "arn:aws:s3:::s3-ue2-stg-naemo-fe-systemadmin"
+        }
+    }
+
+[1m  # aws_cognito_user_pool.cognito_systemadmin[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_cognito_user_pool" "cognito_systemadmin" {
+      [32m+[0m [0m[1m[0marn[0m[0m                        = (known after apply)
+      [32m+[0m [0m[1m[0mauto_verified_attributes[0m[0m   = [
+          [32m+[0m [0m"email",
+        ]
+      [32m+[0m [0m[1m[0mcreation_date[0m[0m              = (known after apply)
+      [32m+[0m [0m[1m[0mcustom_domain[0m[0m              = (known after apply)
+      [32m+[0m [0m[1m[0mdomain[0m[0m                     = (known after apply)
+      [32m+[0m [0m[1m[0memail_verification_message[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0memail_verification_subject[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mendpoint[0m[0m                   = (known after apply)
+      [32m+[0m [0m[1m[0mestimated_number_of_users[0m[0m  = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m                         = (known after apply)
+      [32m+[0m [0m[1m[0mlast_modified_date[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mmfa_configuration[0m[0m          = "OFF"
+      [32m+[0m [0m[1m[0mname[0m[0m                       = "naemo-systemadmin"
+      [32m+[0m [0m[1m[0msms_verification_message[0m[0m   = (known after apply)
+      [32m+[0m [0m[1m[0mtags[0m[0m                       = {
+          [32m+[0m [0m"BusinessOwnerPrimary"        = "infra@bithumbmeta.io"
+          [32m+[0m [0m"Name"                        = "cog-ue2-stg-naemo-systemadmin"
+          [32m+[0m [0m"OperationLevel"              = "2"
+          [32m+[0m [0m"SupportPlatformOwnerPrimary" = "BithumMeta"
+          [32m+[0m [0m"System"                      = "systemadmin"
+        }
+      [32m+[0m [0m[1m[0mtags_all[0m[0m                   = {
+          [32m+[0m [0m"BusinessOwnerPrimary"        = "infra@bithumbmeta.io"
+          [32m+[0m [0m"Environment"                 = "stg"
+          [32m+[0m [0m"Name"                        = "cog-ue2-stg-naemo-systemadmin"
+          [32m+[0m [0m"OperationLevel"              = "2"
+          [32m+[0m [0m"SupportPlatformOwnerPrimary" = "BithumMeta"
+          [32m+[0m [0m"System"                      = "systemadmin"
+          [32m+[0m [0m"Terraform"                   = "True"
+        }
+      [32m+[0m [0m[1m[0musername_attributes[0m[0m        = [
+          [32m+[0m [0m"email",
+        ]
+
+      [32m+[0m [0maccount_recovery_setting {
+          [32m+[0m [0mrecovery_mechanism {
+              [32m+[0m [0m[1m[0mname[0m[0m     = "verified_email"
+              [32m+[0m [0m[1m[0mpriority[0m[0m = 1
+            }
+        }
+
+      [32m+[0m [0madmin_create_user_config {
+          [32m+[0m [0m[1m[0mallow_admin_create_user_only[0m[0m = true
+        }
+
+      [32m+[0m [0mpassword_policy {
+          [32m+[0m [0m[1m[0mminimum_length[0m[0m                   = 8
+          [32m+[0m [0m[1m[0mrequire_numbers[0m[0m                  = true
+          [32m+[0m [0m[1m[0mrequire_symbols[0m[0m                  = true
+          [32m+[0m [0m[1m[0mtemporary_password_validity_days[0m[0m = 7
+        }
+
+      [32m+[0m [0mschema {
+          [32m+[0m [0m[1m[0mattribute_data_type[0m[0m      = "String"
+          [32m+[0m [0m[1m[0mdeveloper_only_attribute[0m[0m = false
+          [32m+[0m [0m[1m[0mmutable[0m[0m                  = false
+          [32m+[0m [0m[1m[0mname[0m[0m                     = "loginType"
+          [32m+[0m [0m[1m[0mrequired[0m[0m                 = false
+
+          [32m+[0m [0mstring_attribute_constraints {
+              [32m+[0m [0m[1m[0mmax_length[0m[0m = "256"
+              [32m+[0m [0m[1m[0mmin_length[0m[0m = "0"
+            }
+        }
+      [32m+[0m [0mschema {
+          [32m+[0m [0m[1m[0mattribute_data_type[0m[0m      = "String"
+          [32m+[0m [0m[1m[0mdeveloper_only_attribute[0m[0m = false
+          [32m+[0m [0m[1m[0mmutable[0m[0m                  = true
+          [32m+[0m [0m[1m[0mname[0m[0m                     = "email"
+          [32m+[0m [0m[1m[0mrequired[0m[0m                 = true
+
+          [32m+[0m [0mstring_attribute_constraints {
+              [32m+[0m [0m[1m[0mmax_length[0m[0m = "2048"
+              [32m+[0m [0m[1m[0mmin_length[0m[0m = "0"
+            }
+        }
+
+      [32m+[0m [0msms_configuration {
+          [32m+[0m [0m[1m[0mexternal_id[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0msns_caller_arn[0m[0m = (known after apply)
+        }
+
+      [32m+[0m [0muser_pool_add_ons {
+          [32m+[0m [0m[1m[0madvanced_security_mode[0m[0m = "OFF"
+        }
+
+      [32m+[0m [0mverification_message_template {
+          [32m+[0m [0m[1m[0mdefault_email_option[0m[0m  = (known after apply)
+          [32m+[0m [0m[1m[0memail_message[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0memail_message_by_link[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0memail_subject[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0memail_subject_by_link[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0msms_message[0m[0m           = (known after apply)
+        }
+    }
+
+[1m  # aws_cognito_user_pool_client.cognito_marketplace_client[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_cognito_user_pool_client" "cognito_marketplace_client" {
+      [33m~[0m [0m[1m[0mcallback_urls[0m[0m                        = [
+          [31m-[0m [0m"https://localhost:4000/member",
+          [32m+[0m [0m"https://localhost:4001/member",
+        ]
+        [1m[0mid[0m[0m                                   = "77278d5q9841siagnu1tc0ors1"
+        [1m[0mname[0m[0m                                 = "marketplace-client"
+        [90m# (16 unchanged attributes hidden)[0m[0m
+
+        [90m# (1 unchanged block hidden)[0m[0m
+    }
+
+[1m  # aws_cognito_user_pool_client.cognito_systemadmin_client[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_cognito_user_pool_client" "cognito_systemadmin_client" {
+      [32m+[0m [0m[1m[0maccess_token_validity[0m[0m                = 30
+      [32m+[0m [0m[1m[0mallowed_oauth_flows[0m[0m                  = [
+          [32m+[0m [0m"code",
+          [32m+[0m [0m"implicit",
+        ]
+      [32m+[0m [0m[1m[0mallowed_oauth_flows_user_pool_client[0m[0m = true
+      [32m+[0m [0m[1m[0mallowed_oauth_scopes[0m[0m                 = [
+          [32m+[0m [0m"aws.cognito.signin.user.admin",
+          [32m+[0m [0m"email",
+          [32m+[0m [0m"openid",
+          [32m+[0m [0m"phone",
+          [32m+[0m [0m"profile",
+        ]
+      [32m+[0m [0m[1m[0mcallback_urls[0m[0m                        = [
+          [32m+[0m [0m"https://localhost:4000/member",
+        ]
+      [32m+[0m [0m[1m[0mclient_secret[0m[0m                        = (sensitive value)
+      [32m+[0m [0m[1m[0menable_token_revocation[0m[0m              = (known after apply)
+      [32m+[0m [0m[1m[0mexplicit_auth_flows[0m[0m                  = [
+          [32m+[0m [0m"ALLOW_ADMIN_USER_PASSWORD_AUTH",
+          [32m+[0m [0m"ALLOW_CUSTOM_AUTH",
+          [32m+[0m [0m"ALLOW_REFRESH_TOKEN_AUTH",
+        ]
+      [32m+[0m [0m[1m[0mgenerate_secret[0m[0m                      = true
+      [32m+[0m [0m[1m[0mid[0m[0m                                   = (known after apply)
+      [32m+[0m [0m[1m[0mid_token_validity[0m[0m                    = 30
+      [32m+[0m [0m[1m[0mlogout_urls[0m[0m                          = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m                                 = "systemadmin-client"
+      [32m+[0m [0m[1m[0mprevent_user_existence_errors[0m[0m        = "ENABLED"
+      [32m+[0m [0m[1m[0mrefresh_token_validity[0m[0m               = 60
+      [32m+[0m [0m[1m[0msupported_identity_providers[0m[0m         = [
+          [32m+[0m [0m"COGNITO",
+        ]
+      [32m+[0m [0m[1m[0muser_pool_id[0m[0m                         = (known after apply)
+
+      [32m+[0m [0mtoken_validity_units {
+          [32m+[0m [0m[1m[0maccess_token[0m[0m  = "minutes"
+          [32m+[0m [0m[1m[0mid_token[0m[0m      = "minutes"
+          [32m+[0m [0m[1m[0mrefresh_token[0m[0m = "minutes"
+        }
+    }
+
+[1m  # aws_ecr_repository.be_systemadmin_image[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ecr_repository" "be_systemadmin_image" {
+        [1m[0mid[0m[0m                   = "be-systemadmin"
+        [1m[0mname[0m[0m                 = "be-systemadmin"
+      [33m~[0m [0m[1m[0mtags[0m[0m                 = {
+          [33m~[0m [0m"System"                      = "backoffice" [33m->[0m [0m"systemadmin"
+            [90m# (3 unchanged elements hidden)[0m[0m
+        }
+      [33m~[0m [0m[1m[0mtags_all[0m[0m             = {
+          [33m~[0m [0m"System"                      = "backoffice" [33m->[0m [0m"systemadmin"
+            [90m# (5 unchanged elements hidden)[0m[0m
+        }
+        [90m# (4 unchanged attributes hidden)[0m[0m
+
+        [90m# (2 unchanged blocks hidden)[0m[0m
+    }
+
+[1m  # aws_ecr_repository.fe_systemadmin_image[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ecr_repository" "fe_systemadmin_image" {
+        [1m[0mid[0m[0m                   = "fe-systemadmin"
+        [1m[0mname[0m[0m                 = "fe-systemadmin"
+      [33m~[0m [0m[1m[0mtags[0m[0m                 = {
+          [33m~[0m [0m"System"                      = "backoffice" [33m->[0m [0m"systemadmin"
+            [90m# (3 unchanged elements hidden)[0m[0m
+        }
+      [33m~[0m [0m[1m[0mtags_all[0m[0m             = {
+          [33m~[0m [0m"System"                      = "backoffice" [33m->[0m [0m"systemadmin"
+            [90m# (5 unchanged elements hidden)[0m[0m
+        }
+        [90m# (4 unchanged attributes hidden)[0m[0m
+
+        [90m# (2 unchanged blocks hidden)[0m[0m
+    }
+
+[1m  # aws_route53_record.private_ngrinder_record[0][0m will be [1m[31mdestroyed[0m
+  # (because index [0] is out of range for count)[0m
+[0m  [31m-[0m[0m resource "aws_route53_record" "private_ngrinder_record" {
+      [31m-[0m [0m[1m[0mfqdn[0m[0m    = "nagent1.mgmt.stg.naemo.io" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mid[0m[0m      = "Z0255917ZL2FMT3937QY_nagent1.mgmt.stg.naemo.io_A" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mname[0m[0m    = "nagent1.mgmt.stg.naemo.io" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mrecords[0m[0m = [
+          [31m-[0m [0m"10.0.7.58",
+        ] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mttl[0m[0m     = 300 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtype[0m[0m    = "A" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mzone_id[0m[0m = "Z0255917ZL2FMT3937QY" [90m->[0m [0m[90mnull[0m[0m
+    }
+
+[1m  # aws_route53_record.private_ngrinder_record[1][0m will be [1m[31mdestroyed[0m
+  # (because index [1] is out of range for count)[0m
+[0m  [31m-[0m[0m resource "aws_route53_record" "private_ngrinder_record" {
+      [31m-[0m [0m[1m[0mfqdn[0m[0m    = "nagent2.mgmt.stg.naemo.io" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mid[0m[0m      = "Z0255917ZL2FMT3937QY_nagent2.mgmt.stg.naemo.io_A" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mname[0m[0m    = "nagent2.mgmt.stg.naemo.io" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mrecords[0m[0m = [
+          [31m-[0m [0m"10.0.7.107",
+        ] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mttl[0m[0m     = 300 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtype[0m[0m    = "A" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mzone_id[0m[0m = "Z0255917ZL2FMT3937QY" [90m->[0m [0m[90mnull[0m[0m
+    }
+
+[1m  # aws_route53_record.private_ngrinder_record[2][0m will be [1m[31mdestroyed[0m
+  # (because index [2] is out of range for count)[0m
+[0m  [31m-[0m[0m resource "aws_route53_record" "private_ngrinder_record" {
+      [31m-[0m [0m[1m[0mfqdn[0m[0m    = "nagent3.mgmt.stg.naemo.io" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mid[0m[0m      = "Z0255917ZL2FMT3937QY_nagent3.mgmt.stg.naemo.io_A" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mname[0m[0m    = "nagent3.mgmt.stg.naemo.io" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mrecords[0m[0m = [
+          [31m-[0m [0m"10.0.7.45",
+        ] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mttl[0m[0m     = 300 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtype[0m[0m    = "A" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mzone_id[0m[0m = "Z0255917ZL2FMT3937QY" [90m->[0m [0m[90mnull[0m[0m
+    }
+
+[1m  # aws_route53_record.private_ngrinder_record[3][0m will be [1m[31mdestroyed[0m
+  # (because index [3] is out of range for count)[0m
+[0m  [31m-[0m[0m resource "aws_route53_record" "private_ngrinder_record" {
+      [31m-[0m [0m[1m[0mfqdn[0m[0m    = "nagent4.mgmt.stg.naemo.io" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mid[0m[0m      = "Z0255917ZL2FMT3937QY_nagent4.mgmt.stg.naemo.io_A" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mname[0m[0m    = "nagent4.mgmt.stg.naemo.io" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mrecords[0m[0m = [
+          [31m-[0m [0m"10.0.7.68",
+        ] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mttl[0m[0m     = 300 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtype[0m[0m    = "A" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mzone_id[0m[0m = "Z0255917ZL2FMT3937QY" [90m->[0m [0m[90mnull[0m[0m
+    }
+
+[1m  # aws_s3_bucket.fe-systemadmin_bucket[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_s3_bucket" "fe-systemadmin_bucket" {
+        [1m[0mid[0m[0m                                   = "s3-ue2-stg-naemo-fe-systemadmin"
+      [33m~[0m [0m[1m[0mtags[0m[0m                                 = {
+          [33m~[0m [0m"System"                      = "backoffice" [33m->[0m [0m"systemadmin"
+            [90m# (4 unchanged elements hidden)[0m[0m
+        }
+      [33m~[0m [0m[1m[0mtags_all[0m[0m                             = {
+          [33m~[0m [0m"System"                      = "backoffice" [33m->[0m [0m"systemadmin"
+            [90m# (6 unchanged elements hidden)[0m[0m
+        }
+        [90m# (19 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # aws_s3_bucket_policy.fe-systemadmin_bucket[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_s3_bucket_policy" "fe-systemadmin_bucket" {
+        [1m[0mid[0m[0m     = "s3-ue2-stg-naemo-fe-systemadmin"
+      [33m~[0m [0m[1m[0mpolicy[0m[0m = jsonencode(
+            {
+              [31m-[0m [0mStatement = [
+                  [31m-[0m [0m{
+                      [31m-[0m [0mAction    = "s3:GetObject"
+                      [31m-[0m [0mCondition = {
+                          [31m-[0m [0mStringEquals = {
+                              [31m-[0m [0m"aws:SourceVpce" = "vpce-046a43f23ecb49413"
+                            }
+                        }
+                      [31m-[0m [0mEffect    = "Allow"
+                      [31m-[0m [0mPrincipal = {
+                          [31m-[0m [0mAWS = "*"
+                        }
+                      [31m-[0m [0mResource  = [
+                          [31m-[0m [0m"arn:aws:s3:::s3-ue2-stg-naemo-fe-systemadmin/*",
+                          [31m-[0m [0m"arn:aws:s3:::s3-ue2-stg-naemo-fe-systemadmin",
+                        ]
+                      [31m-[0m [0mSid       = ""
+                    },
+                  [31m-[0m [0m{
+                      [31m-[0m [0mAction    = "s3:*"
+                      [31m-[0m [0mCondition = {
+                          [31m-[0m [0mBool = {
+                              [31m-[0m [0m"aws:SecureTransport" = "false"
+                            }
+                        }
+                      [31m-[0m [0mEffect    = "Deny"
+                      [31m-[0m [0mPrincipal = "*"
+                      [31m-[0m [0mResource  = [
+                          [31m-[0m [0m"arn:aws:s3:::s3-ue2-stg-naemo-fe-systemadmin",
+                          [31m-[0m [0m"arn:aws:s3:::s3-ue2-stg-naemo-fe-systemadmin/*",
+                        ]
+                      [31m-[0m [0mSid       = "AllowSSLRequestsOnly"
+                    },
+                ]
+              [31m-[0m [0mVersion   = "2012-10-17"
+            }
+        ) [33m->[0m [0m(known after apply)
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_s3_bucket_policy.launchpad_bucket[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_s3_bucket_policy" "launchpad_bucket" {
+        [1m[0mid[0m[0m     = "s3-ue2-stg-naemo-launchpad"
+      [33m~[0m [0m[1m[0mpolicy[0m[0m = jsonencode(
+          [33m~[0m [0m{
+              [33m~[0m [0mStatement = [
+                    [90m# (1 unchanged element hidden)[0m[0m
+                    {
+                        Action    = "s3:GetObject"
+                        Effect    = "Allow"
+                        Principal = {
+                            AWS = "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity E3EC6YBPCC5JVA"
+                        }
+                        Resource  = [
+                            "arn:aws:s3:::s3-ue2-stg-naemo-launchpad/*",
+                            "arn:aws:s3:::s3-ue2-stg-naemo-launchpad",
+                        ]
+                        Sid       = ""
+                    },
+                  [32m+[0m [0m{
+                      [32m+[0m [0mAction    = [
+                          [32m+[0m [0m"s3:PutObject",
+                          [32m+[0m [0m"s3:GetObject",
+                        ]
+                      [32m+[0m [0mEffect    = "Allow"
+                      [32m+[0m [0mPrincipal = {
+                          [32m+[0m [0mAWS = "arn:aws:iam::351894368755:role/lambda-edge-role"
+                        }
+                      [32m+[0m [0mResource  = [
+                          [32m+[0m [0m"arn:aws:s3:::s3-ue2-stg-naemo-launchpad/*",
+                          [32m+[0m [0m"arn:aws:s3:::s3-ue2-stg-naemo-launchpad",
+                        ]
+                      [32m+[0m [0mSid       = ""
+                    },
+                    {
+                        Action    = "s3:*"
+                        Condition = {
+                            Bool = {
+                                "aws:SecureTransport" = [
+                                    "false",
+                                ]
+                            }
+                        }
+                        Effect    = "Deny"
+                        Principal = "*"
+                        Resource  = [
+                            "arn:aws:s3:::s3-ue2-stg-naemo-launchpad",
+                            "arn:aws:s3:::s3-ue2-stg-naemo-launchpad/*",
+                        ]
+                        Sid       = "AllowSSLRequestsOnly"
+                    },
+                ]
+                [90m# (1 unchanged element hidden)[0m[0m
+            }
+        )
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_s3_bucket_policy.nft_bucket[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_s3_bucket_policy" "nft_bucket" {
+        [1m[0mid[0m[0m     = "s3-ue2-stg-naemo-nft"
+      [33m~[0m [0m[1m[0mpolicy[0m[0m = jsonencode(
+          [33m~[0m [0m{
+              [33m~[0m [0mStatement = [
+                    [90m# (1 unchanged element hidden)[0m[0m
+                    {
+                        Action    = "s3:GetObject"
+                        Effect    = "Allow"
+                        Principal = {
+                            AWS = "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity E3EC6YBPCC5JVA"
+                        }
+                        Resource  = [
+                            "arn:aws:s3:::s3-ue2-stg-naemo-nft/*",
+                            "arn:aws:s3:::s3-ue2-stg-naemo-nft",
+                        ]
+                        Sid       = ""
+                    },
+                  [33m~[0m [0m{
+                      [33m~[0m [0mAction    = [
+                          [31m-[0m [0m"s3:*",
+                          [32m+[0m [0m"s3:PutObject",
+                            "s3:GetObject",
+                        ]
+                      [33m~[0m [0mPrincipal = {
+                          [33m~[0m [0mAWS = [
+                                "arn:aws:iam::351894368755:role/lambda-edge-role",
+                              [31m-[0m [0m"arn:aws:iam::087942668956:role/marketplace_bottlerocket_node-eks-node-group",
+                              [32m+[0m [0m"arn:aws:iam::087942668956:role/batch-ecs-excution-role-next",
+                            ]
+                        }
+                        [90m# (3 unchanged elements hidden)[0m[0m
+                    },
+                  [33m~[0m [0m{
+                      [33m~[0m [0mCondition = {
+                          [33m~[0m [0mBool = {
+                              [33m~[0m [0m"aws:SecureTransport" = "false" [33m->[0m [0m[
+                                  [32m+[0m [0m"false",
+                                ]
+                            }
+                        }
+                        [90m# (5 unchanged elements hidden)[0m[0m
+                    },
+                  [31m-[0m [0m{
+                      [31m-[0m [0mAction    = "s3:GetObject"
+                      [31m-[0m [0mEffect    = "Allow"
+                      [31m-[0m [0mPrincipal = {
+                          [31m-[0m [0mAWS = "arn:aws:iam::693980117977:role/S3-ReadOnly-Access"
+                        }
+                      [31m-[0m [0mResource  = [
+                          [31m-[0m [0m"arn:aws:s3:::s3-ue2-stg-naemo-nft/*",
+                          [31m-[0m [0m"arn:aws:s3:::s3-ue2-stg-naemo-nft",
+                        ]
+                      [31m-[0m [0mSid       = ""
+                    },
+                ]
+                [90m# (1 unchanged element hidden)[0m[0m
+            }
+        )
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_security_group.bcs_ngrinder_sg[0][0m will be [1m[31mdestroyed[0m
+  # (because index [0] is out of range for count)[0m
+[0m  [31m-[0m[0m resource "aws_security_group" "bcs_ngrinder_sg" {
+      [31m-[0m [0m[1m[0marn[0m[0m                    = "arn:aws:ec2:us-east-2:087942668956:security-group/sg-05508b66206a20044" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mdescription[0m[0m            = "Allow monachain inbound traffic" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0megress[0m[0m                 = [
+          [31m-[0m [0m{
+              [31m-[0m [0mcidr_blocks      = [
+                  [31m-[0m [0m"0.0.0.0/0",
+                ]
+              [31m-[0m [0mdescription      = "all from vpc"
+              [31m-[0m [0mfrom_port        = 0
+              [31m-[0m [0mipv6_cidr_blocks = []
+              [31m-[0m [0mprefix_list_ids  = []
+              [31m-[0m [0mprotocol         = "tcp"
+              [31m-[0m [0msecurity_groups  = []
+              [31m-[0m [0mself             = false
+              [31m-[0m [0mto_port          = 65535
+            },
+        ] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mid[0m[0m                     = "sg-05508b66206a20044" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mingress[0m[0m                = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mname[0m[0m                   = "bcs-ngrinder-sg" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mowner_id[0m[0m               = "087942668956" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mrevoke_rules_on_delete[0m[0m = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtags[0m[0m                   = {
+          [31m-[0m [0m"BusinessOwnerPrimary"        = "infra@bithumbmeta.io"
+          [31m-[0m [0m"Name"                        = "sg-ue2-stg-bcs-ngrinder"
+          [31m-[0m [0m"OperationLevel"              = "2"
+          [31m-[0m [0m"SupportPlatformOwnerPrimary" = "BithumMeta"
+          [31m-[0m [0m"System"                      = "bcs"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtags_all[0m[0m               = {
+          [31m-[0m [0m"BusinessOwnerPrimary"        = "infra@bithumbmeta.io"
+          [31m-[0m [0m"Environment"                 = "stg"
+          [31m-[0m [0m"Name"                        = "sg-ue2-stg-bcs-ngrinder"
+          [31m-[0m [0m"OperationLevel"              = "2"
+          [31m-[0m [0m"SupportPlatformOwnerPrimary" = "BithumMeta"
+          [31m-[0m [0m"System"                      = "bcs"
+          [31m-[0m [0m"Terraform"                   = "True"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mvpc_id[0m[0m                 = "vpc-0954107e677c2fbd6" [90m->[0m [0m[90mnull[0m[0m
+    }
+
+[1m  # aws_security_group_rule.allow_inbound_management_ssh[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_security_group_rule" "allow_inbound_management_ssh" {
+      [32m+[0m [0m[1m[0mcidr_blocks[0m[0m              = [
+          [32m+[0m [0m"10.0.23.116/32",
+        ]
+      [32m+[0m [0m[1m[0mdescription[0m[0m              = "ssh from hiware"
+      [32m+[0m [0m[1m[0mfrom_port[0m[0m                = 22
+      [32m+[0m [0m[1m[0mid[0m[0m                       = (known after apply)
+      [32m+[0m [0m[1m[0mprotocol[0m[0m                 = "tcp"
+      [32m+[0m [0m[1m[0msecurity_group_id[0m[0m        = "sg-0ade78da29b2090a5"
+      [32m+[0m [0m[1m[0mself[0m[0m                     = false
+      [32m+[0m [0m[1m[0msource_security_group_id[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mto_port[0m[0m                  = 22
+      [32m+[0m [0m[1m[0mtype[0m[0m                     = "ingress"
+    }
+
+[1m  # aws_security_group_rule.allow_outbound_ngrinder[0][0m will be [1m[31mdestroyed[0m
+  # (because index [0] is out of range for count)[0m
+[0m  [31m-[0m[0m resource "aws_security_group_rule" "allow_outbound_ngrinder" {
+      [31m-[0m [0m[1m[0mcidr_blocks[0m[0m       = [
+          [31m-[0m [0m"0.0.0.0/0",
+        ] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mdescription[0m[0m       = "all from vpc" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mfrom_port[0m[0m         = 0 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mid[0m[0m                = "sgrule-1796482901" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mipv6_cidr_blocks[0m[0m  = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mprefix_list_ids[0m[0m   = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mprotocol[0m[0m          = "tcp" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msecurity_group_id[0m[0m = "sg-05508b66206a20044" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mself[0m[0m              = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mto_port[0m[0m           = 65535 [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtype[0m[0m              = "egress" [90m->[0m [0m[90mnull[0m[0m
+    }
+
+[0m[1mPlan:[0m 3 to add, 7 to change, 6 to destroy.
+[0m[33m╷[0m[0m
+[33m│[0m [0m[1m[33mWarning: [0m[0m[1mValue for undeclared variable[0m
+[33m│[0m [0m
+[33m│[0m [0m[0mThe root module does not declare a variable named "s3_tfstate_file" but a value was found in file "configurations/stg.tfvars". If you meant to use this value, add a "variable"
+[33m│[0m [0mblock to the configuration.
+[33m│[0m [0m
+[33m│[0m [0mTo silence these warnings, use TF_VAR_... environment variables to provide certain "global" settings to all configurations in your organization. To reduce the verbosity of
+[33m│[0m [0mthese warnings, use the -compact-warnings option.
+[33m╵[0m[0m
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
+Releasing state lock. This may take a few moments...

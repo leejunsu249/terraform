@@ -1,0 +1,27 @@
+.infra-terraform-plan-template:
+  stage: terraform-plan
+  tags: 
+    - shared
+  environment:
+    name: $ENV
+  extends: .aws-assume-template
+  script:
+    - cd terraform/${target}
+    - ./get-setenv.sh configurations/${ENV}.tfvars
+    - terraform init
+    - terraform plan -var-file configurations/${ENV}.tfvars
+  resource_group: $ENV
+
+.infra-terraform-apply-template:
+  stage: terraform-apply
+  tags: 
+    - shared
+  environment:
+    name: $ENV
+  extends: .aws-assume-template
+  script:
+    - cd terraform/${target}
+    - ./get-setenv.sh configurations/${ENV}.tfvars
+    - terraform init
+    - terraform apply -auto-approve -var-file configurations/${ENV}.tfvars
+  resource_group: $ENV

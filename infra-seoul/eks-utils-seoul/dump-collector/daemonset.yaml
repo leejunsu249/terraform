@@ -1,0 +1,58 @@
+# create amazon-cloudwatch namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dump-collector
+  labels: 
+    name: dump-collector
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dump-collector
+  namespace: dump-collector
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::AWS_ACCOUNT_NUMBER:role/dump-collector-an2-role
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: dump-collector
+  namespace: dump-collector
+  labels:
+    k8s-app: dump-collector
+spec:
+  selector:
+    matchLabels:
+      name: dump-collector
+  template:
+    metadata:
+      labels:
+        name: dump-collector
+    spec:
+      serviceAccountName: dump-collector
+      tolerations:
+      - effect: NoSchedule
+        operator: Exists
+      containers:
+      - name: dump-collector
+        image: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/dump-collector:1.0
+        imagePullPolicy: Always
+        env:
+        - name: S3bucket
+          value: s3-an2-DEPLOY_ENV-naemo-heap-dump
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts:
+        - name: dumps
+          mountPath: /var/log/dumps/
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: dumps
+        hostPath:
+          path: /var/log/dumps/
+          type: DirectoryOrCreate

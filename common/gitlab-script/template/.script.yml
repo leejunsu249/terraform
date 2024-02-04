@@ -1,0 +1,71 @@
+.helm-script:
+  script:
+    - >-
+      if [ $ENV == "dev" ] || [ $IS_FEATURE == "true" ]; then
+         export HELM_BRANCH="master"
+      else
+        export HELM_BRANCH="master"
+      fi
+    - >-
+      if [[ $IS_FEATURE == "true" ]]; then 
+        CICD_ENV=feature
+        VALUEFILE="values-${BRANCH}.yaml"
+      fi  
+    - echo "values-${BRANCH}.yaml"
+    - echo "${HELM_REPO}"
+    - echo "${HELM_BRANCH}"
+
+    - git clone -b ${HELM_BRANCH} --single-branch http://gitlab-ci-token:${ACCESS_TOKEN}@${GITLAB_URL}/${CI_PROJECT_NAMESPACE}/${HELM_REPO}.git
+    - cd ${HELM_REPO}/${CICD_ENV}
+    - >-
+      if [ $IS_FEATURE == "true" ]; then
+        rm -rf values-${BRANCH}.yaml
+        cp values-template.yaml ${VALUEFILE}
+      fi
+    - >-
+      if [ $IS_FEATURE == "true" ]; then 
+        export SWAGGER_DOMAIN="https://"${FULL_DOMAIN}
+        export FULL_DOMAIN=${FULL_DOMAIN}
+        export MGMT_DOMAIN=${MGMT_DOMAIN}
+
+        yq e --inplace '(.image.name = env(IMAGE)) | (.envs[0].value = env(SCHEMA)) | 
+        (.pubingress.hosts[0].host= env(FULL_DOMAIN)) | (.ingress.hosts[0].host= env(MGMT_DOMAIN)) | 
+        (.envs[1].value=env(SWAGGER_DOMAIN))' \
+        $VALUEFILE
+      else
+        yq e --inplace '(.image.name = env(IMAGE))' $VALUEFILE
+      fi
+    - git add .
+    - git commit -m "Auto update at `date +'%Y-%m-%d %H:%M:%S'` ${CI_PIPELINE_IID}" || true
+    - git push http://gitlab-ci-token:${ACCESS_TOKEN}@${GITLAB_URL}/${CI_PROJECT_NAMESPACE}/${HELM_REPO}.git ${HELM_BRANCH} || true
+
+.argocd-create-new-app-script:
+  script:
+    - >-
+      if [ $ENV == "dev" ] || [ $IS_FEATURE == "true" ]; then
+        export HELM_BRANCH="master"
+      else
+        export HELM_BRANCH="master"
+      fi
+    - export no=$(argocd app list --auth-token ${ARGO_TOKEN} --server ${ARGO_CD_URL} --grpc-web --plaintext | grep "^${SYSTEM_NAME} " | wc -l)
+
+    - >-
+      if [ $IS_FEATURE == "true" ]; then
+        CICD_ENV=feature
+        VALUEFILE="values-${BRANCH}.yaml"
+      fi
+    - >-
+      if [ $no -eq 0 ]; then
+        argocd app create ${SYSTEM_NAME} \
+        --auth-token ${ARGO_TOKEN} \
+        --server ${ARGO_CD_URL} \
+        --repo http://${GITLAB_URL}/${CI_PROJECT_NAMESPACE}/${HELM_REPO}.git --path . \
+        --values ${CICD_ENV}/${VALUEFILE} \
+        --dest-name ${EKS_CLUSTER} \
+        --dest-namespace ${SYSTEM_NAME} \
+        --project ${ARGO_PROJECT} \
+        --sync-option CreateNamespace=true \
+        --grpc-web \
+        --plaintext \
+        --revision ${HELM_BRANCH}
+      fi

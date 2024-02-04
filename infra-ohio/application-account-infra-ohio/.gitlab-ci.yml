@@ -1,0 +1,361 @@
+default:
+  image: 676826599814.dkr.ecr.ap-northeast-2.amazonaws.com/gitlab-runner-image-aws-sdk:1.0
+
+variables:
+  AWS_ROLE_SESSION_NAME: "gitlab-$CI_PIPELINE_ID-$CI_JOB_NAME"
+
+include:
+  - project: 'common/gitlab-script'
+    ref: v2.5
+    file: '/template/.before-script-template.yml'
+  - project: 'common/gitlab-script'
+    ref: v2.5
+    file: '/template/.infra-workflow-script-template.yml'
+  - project: 'common/gitlab-script'
+    ref: v2.5
+    file: '/template/.infra-job-template.yml'
+
+stages:          # List of stages for jobs, and their order of execution
+  - terraform-plan
+  - terraform-apply
+  - terraform-plan-prd
+  - terraform-apply-prd
+
+comm-terraform-plan: 
+  stage: terraform-plan
+  extends: .infra-terraform-plan-template
+  resource_group: ${target}-${ENV}
+  cache:
+    key: ${CI_COMMIT_BRANCH}-${target}-terraform
+    paths:
+      - terraform/${target}/.terraform
+  variables:
+    target: comm
+  # rules:
+  # - if: $IS_FEATURE == "true"
+  #   changes:
+  #     - terraform/${target}/**
+
+comm-terraform-apply: 
+  stage: terraform-apply
+  extends: .infra-terraform-apply-template
+  resource_group: ${target}-${ENV}
+  cache:
+    key: ${CI_COMMIT_BRANCH}-${target}-terraform
+    paths:
+      - terraform/${target}/.terraform
+  variables:
+    target: comm
+  when: manual
+  # rules:
+  # - if: $IS_FEATURE == "false"
+  #   changes:
+  #     - terraform/${target}/**
+
+comm-terraform-plan-prd: 
+  stage: terraform-plan-prd
+  extends: .infra-terraform-plan-template
+  resource_group: ${target}-${ENV}
+  cache:
+    key: ${CI_COMMIT_BRANCH}-${target}-terraform
+    paths:
+      - terraform/${target}/.terraform
+  when: manual
+  variables:
+    target: comm
+    ENV: nprd
+  rules:
+  - if: $CI_COMMIT_BRANCH == "master" 
+    changes:
+      - terraform/${target}/**
+
+comm-terraform-apply-prd: 
+  stage: terraform-apply-prd
+  extends: .infra-terraform-apply-template
+  resource_group: ${target}-${ENV}
+  cache:
+    key: ${CI_COMMIT_BRANCH}-${target}-terraform
+    paths:
+      - terraform/${target}/.terraform
+  when: manual
+  variables:
+    target: comm
+    ENV: nprd
+  needs:
+    - comm-terraform-plan-prd
+  rules:
+  - if: $CI_COMMIT_BRANCH == "master" 
+    changes:
+      - terraform/${target}/**
+
+### new prod environment ###
+# comm-terraform-plan-nprd: 
+#   stage: terraform-plan-prd
+#   extends: .infra-terraform-plan-template
+#   resource_group: ${target}-${ENV}
+#   cache:
+#     key: ${CI_COMMIT_BRANCH}-${target}-terraform
+#     paths:
+#       - terraform/${target}/.terraform
+#   variables:
+#     target: comm
+#     ENV: nprd
+#   when: manual
+#   rules:
+#   - if: $CI_COMMIT_BRANCH == "master" 
+#     changes:
+#       - terraform/${target}/**
+
+# comm-terraform-apply-nprd: 
+#   stage: terraform-apply-prd
+#   extends: .infra-terraform-apply-template
+#   resource_group: ${target}-${ENV}
+#   cache:
+#     key: ${CI_COMMIT_BRANCH}-${target}-terraform
+#     paths:
+#       - terraform/${target}/.terraform
+#   when: manual
+#   variables:
+#     target: comm
+#     ENV: nprd
+#   when: manual
+#   needs:
+#     - comm-terraform-plan-nprd
+#   rules:
+#   - if: $CI_COMMIT_BRANCH == "master" 
+#     changes:
+#       - terraform/${target}/**
+
+eks-terraform-plan: 
+  stage: terraform-plan
+  extends: .infra-terraform-plan-template
+  resource_group: ${target}-${ENV}
+  cache:
+    key: ${CI_COMMIT_BRANCH}-${target}-terraform
+    paths:
+      - terraform/${target}/.terraform
+  variables:
+    target: eks
+
+
+eks-terraform-apply: 
+  stage: terraform-apply
+  extends: .infra-terraform-apply-template
+  resource_group: ${target}-${ENV}
+  cache:
+    key: ${CI_COMMIT_BRANCH}-${target}-terraform
+    paths:
+      - terraform/${target}/.terraform
+  variables:
+    target: eks
+  when: manual
+
+eks-terraform-plan-prd: 
+  stage: terraform-plan-prd
+  extends: .infra-terraform-plan-template
+  resource_group: ${target}-${ENV}
+  cache:
+    key: ${CI_COMMIT_BRANCH}-${target}-terraform
+    paths:
+      - terraform/${target}/.terraform
+  variables:
+    target: eks
+    ENV: nprd
+  when: manual
+  rules:
+  - if: $CI_COMMIT_BRANCH == "master" 
+    changes:
+      - terraform/${target}/**/*
+
+eks-terraform-apply-prd: 
+  stage: terraform-apply-prd
+  extends: .infra-terraform-apply-template
+  resource_group: ${target}-${ENV}
+  cache:
+    key: ${CI_COMMIT_BRANCH}-${target}-terraform
+    paths:
+      - terraform/${target}/.terraform
+  variables:
+    target: eks
+    ENV: nprd
+  when: manual
+  needs:
+    - eks-terraform-plan-prd    
+  rules:
+  - if: $CI_COMMIT_BRANCH == "master" 
+    changes:
+      - terraform/${target}/**/*
+
+### new prod environment ###
+# eks-terraform-plan-nprd: 
+#   stage: terraform-plan-prd
+#   extends: .infra-terraform-plan-template
+#   resource_group: ${target}-${ENV}
+#   cache:
+#     key: ${CI_COMMIT_BRANCH}-${target}-terraform
+#     paths:
+#       - terraform/${target}/.terraform
+#   variables:
+#     target: eks
+#     ENV: nprd
+#   rules:
+#   - if: $CI_COMMIT_BRANCH == "master" 
+#     changes:
+#       - terraform/${target}/**/*
+
+# eks-terraform-apply-nprd: 
+#   stage: terraform-apply-prd
+#   extends: .infra-terraform-apply-template
+#   resource_group: ${target}-${ENV}
+#   cache:
+#     key: ${CI_COMMIT_BRANCH}-${target}-terraform
+#     paths:
+#       - terraform/${target}/.terraform
+#   variables:
+#     target: eks
+#     ENV: nprd
+#   when: manual
+#   needs:
+#     - eks-terraform-plan-nprd    
+#   rules:
+#   - if: $CI_COMMIT_BRANCH == "master" 
+#     changes:
+#       - terraform/${target}/**/*
+
+# database-terraform-plan: 
+#   stage: terraform-plan
+#   extends: .infra-terraform-plan-template
+#   resource_group: ${target}-${ENV}
+#   cache:
+#     key: ${CI_COMMIT_BRANCH}-${target}-terraform
+#     paths:
+#       - terraform/${target}/.terraform
+#   variables:
+#     target: database
+#   rules:
+#   - if: $IS_FEATURE == "true"
+#     changes:
+#       - terraform/${target}/**/*
+#       - modules/**/*
+
+# database-terraform-apply: 
+#   stage: terraform-apply
+#   extends: .infra-terraform-apply-template
+#   resource_group: ${target}-${ENV}
+#   cache:
+#     key: ${CI_COMMIT_BRANCH}-${target}-terraform
+#     paths:
+#       - terraform/${target}/.terraform
+#   variables:
+#     target: database
+#   rules:
+#   - if: $IS_FEATURE == "false"
+#     changes:
+#       - terraform/${target}/**/*
+#       - modules/**/*
+
+# database-terraform-plan-prd: 
+#   stage: terraform-plan-prd
+#   extends: .infra-terraform-plan-template
+#   resource_group: ${target}-${ENV}
+#   cache:
+#     key: ${CI_COMMIT_BRANCH}-${target}-terraform
+#     paths:
+#       - terraform/${target}/.terraform
+#   variables:
+#     target: database
+#     ENV: prd
+#   rules:
+#   - if: $CI_COMMIT_BRANCH == "master" 
+#     changes:
+#       - terraform/${target}/**/*
+#       - modules/**/*
+
+# database-terraform-apply-prd: 
+#   stage: terraform-apply-prd
+#   extends: .infra-terraform-apply-template
+#   resource_group: ${target}-${ENV}
+#   cache:
+#     key: ${CI_COMMIT_BRANCH}-${target}-terraform
+#     paths:
+#       - terraform/${target}/.terraform
+#   variables:
+#     target: database
+#     ENV: prd
+#   when: manual
+#   needs:
+#     - database-terraform-plan-prd      
+#   rules:
+#   - if: $CI_COMMIT_BRANCH == "master" 
+#     changes:
+#       - terraform/${target}/**/*
+#       - modules/**/*
+
+### new prod environment ###
+# database-terraform-plan-nprd: 
+#   stage: terraform-plan-prd
+#   extends: .infra-terraform-plan-template
+#   resource_group: ${target}-${ENV}
+#   cache:
+#     key: ${CI_COMMIT_BRANCH}-${target}-terraform
+#     paths:
+#       - terraform/${target}/.terraform
+#   variables:
+#     target: database
+#     ENV: nprd
+#   rules:
+#   - if: $CI_COMMIT_BRANCH == "master" 
+#     changes:
+#       - terraform/${target}/**/*
+#       - modules/**/*
+
+# database-terraform-apply-nprd: 
+#   stage: terraform-apply-prd
+#   extends: .infra-terraform-apply-template
+#   resource_group: ${target}-${ENV}
+#   cache:
+#     key: ${CI_COMMIT_BRANCH}-${target}-terraform
+#     paths:
+#       - terraform/${target}/.terraform
+#   variables:
+#     target: database
+#     ENV: nprd
+#   when: manual
+#   needs:
+#     - database-terraform-plan-nprd      
+#   rules:
+#   - if: $CI_COMMIT_BRANCH == "master" 
+#     changes:
+#       - terraform/${target}/**/*
+#       - modules/**/*
+
+# opensearch-terraform-plan: 
+#   stage: terraform-plan
+#   extends: .infra-terraform-plan-template
+#   resource_group: ${target}-${ENV}
+#   cache:
+#     key: ${CI_COMMIT_BRANCH}-${target}-terraform
+#     paths:
+#       - terraform/${target}/.terraform
+#   variables:
+#     target: opensearch
+#   rules:
+#   - if: $IS_FEATURE == "true"
+#     changes:
+#       - terraform/${target}/**/*
+#       - modules/**/*
+
+# opensearch-terraform-apply: 
+#   stage: terraform-apply
+#   extends: .infra-terraform-apply-template
+#   resource_group: ${target}-${ENV}
+#   cache:
+#     key: ${CI_COMMIT_BRANCH}-${target}-terraform
+#     paths:
+#       - terraform/${target}/.terraform
+#   variables:
+#     target: opensearch
+#   rules:
+#   - changes:
+#       - terraform/${target}/**/*
+#       - modules/**/*      

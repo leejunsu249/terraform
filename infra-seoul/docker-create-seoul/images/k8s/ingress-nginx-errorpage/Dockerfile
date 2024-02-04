@@ -1,0 +1,1 @@
+FROM registry.k8s.io/ingress-nginx/nginx-errors:v20220916-gd32f8c343@sha256:09c421ac743bace19ab77979b82186941c5125c95e62cdb40bdf41293b5c275c 

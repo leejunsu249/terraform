@@ -1,0 +1,99 @@
+.configure-nginx:
+  before_script:
+    - >
+      AWS_SHOT_REGION="ue2"
+
+      if [ "$AWS_REGION" == "ap-northeast-2" ]; then
+        AWS_SHOT_REGION="an2"
+      fi
+
+      if [ "$IS_FEATURE" == "true" ]; then
+        S3_BUCKET_NAME=s3-${AWS_SHOT_REGION}-dev-naemo-${SERVICE_NAME}-feature-${BRANCH}
+      fi
+
+    - >
+      if [[ "$IS_NEXT" == "true" ]] && [[ "$CI_COMMIT_REF_NAME" == "develop_next" ]]; then
+        S3_BUCKET_NAME="$S3_BUCKET_NAME-next"
+      fi
+
+    - sed -i "s/__SERVER_NAME__/$FULL_DOMAIN/g" cicd/nginx.conf
+    - sed -i "s/__BUCKET_NAME__/$S3_BUCKET_NAME/g" cicd/nginx.conf
+    - sed -i "s/__AWS_REGION__/$AWS_REGION/g" cicd/nginx.conf
+    - sed -i "s/__SERVER_MGMT_NAME__/$MGMT_DOMAIN/g" cicd/nginx.conf
+    - cat cicd/nginx.conf
+
+.set-domain:
+  before_script:
+    - >
+      if [[ $CI_PROJECT_NAME	== "fe-marketplace" ]]; then
+        if [[ $ENV	== "dev" ]] && [[ "$STATUS" == "alpha" ]]; then
+          FULL_DOMAIN="${ENV}.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="mgmt.${ENV}.${ROOT_DOMAIN}";
+        elif [[ $ENV	== "dev" ]] && [[ "$STATUS" == "beta" ]]; then
+          FULL_DOMAIN="${ENV}-next.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="mgmt.${ENV}-next.${ROOT_DOMAIN}";
+        elif [[ $ENV	== "dev-bc" ]] && [[ "$STATUS" == "beta" ]]; then
+          FULL_DOMAIN="${ENV}.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="mgmt.${ENV}-bc.${ROOT_DOMAIN}";
+        elif [[ $ENV	== "dev-new" ]] && [[ "$STATUS" == "beta" ]]; then
+          FULL_DOMAIN="${ENV}.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="mgmt.${ENV}-new.${ROOT_DOMAIN}";
+        elif [[ $ENV	== "stg" ]]; then
+          FULL_DOMAIN="${ENV}.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="mgmt.${ENV}.${ROOT_DOMAIN}";
+        elif [[ $ENV	== "prd" ]]; then
+          FULL_DOMAIN="${ENV}.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="mgmt.${ENV}.${ROOT_DOMAIN}";
+        else
+          FULL_DOMAIN="${ROOT_DOMAIN}";
+          MGMT_DOMAIN="mgmt.${ENV}.${ROOT_DOMAIN}";
+        fi
+      fi
+    - >
+      if [[ $CI_PROJECT_NAME	== "fe-creator" ]]; then
+        if [[ $ENV	== "dev" ]] && [[ "$STATUS" == "alpha" ]]; then
+          FULL_DOMAIN="creator.${ENV}.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="creator.mgmt.${ENV}.${ROOT_DOMAIN}";
+        elif [[ $ENV	== "dev" ]] && [[ "$STATUS" == "beta" ]]; then
+          FULL_DOMAIN="creator.${ENV}-next.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="creator.mgmt.${ENV}-next.${ROOT_DOMAIN}";
+        elif [[ $ENV	== "dev-bc" ]] && [[ "$STATUS" == "beta" ]]; then
+          FULL_DOMAIN="creator.${ENV}.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="creator.mgmt.${ENV}-bc.${ROOT_DOMAIN}";
+        elif [[ $ENV	== "dev-new" ]] && [[ "$STATUS" == "beta" ]]; then
+          FULL_DOMAIN="creator.${ENV}.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="creator.mgmt.${ENV}-new.${ROOT_DOMAIN}";  
+        elif [[ $ENV	== "stg" ]]; then
+          FULL_DOMAIN="creator.${ENV}.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="creator.mgmt.${ENV}.${ROOT_DOMAIN}";
+        elif [[ $ENV	== "prd" ]]; then
+          FULL_DOMAIN="creator.${ENV}.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="creator.mgmt.${ENV}.${ROOT_DOMAIN}";
+        else
+          FULL_DOMAIN="creator.${ROOT_DOMAIN}";
+          MGMT_DOMAIN="creator.mgmt.${ENV}.${ROOT_DOMAIN}";
+        fi
+      fi
+    - >
+      if [[ $CI_PROJECT_NAME	== "fe-systemadmin" ]]; then
+        if [[ $ENV	== "dev" ]] && [[ "$STATUS" == "alpha" ]]; then
+          MGMT_DOMAIN="system.mgmt.${ENV}.${ROOT_DOMAIN}";
+        elif [[ $ENV	== "dev" ]] && [[ "$STATUS" == "beta" ]]; then
+          MGMT_DOMAIN="system.mgmt.an2.${ENV}-next.${ROOT_DOMAIN}";
+        elif [[ $ENV	== "dev-bc" ]] && [[ "$STATUS" == "beta" ]]; then
+          MGMT_DOMAIN="system.mgmt.an2.${ENV}.${ROOT_DOMAIN}";
+        elif [[ $ENV	== "dev-new" ]] && [[ "$STATUS" == "beta" ]]; then
+          MGMT_DOMAIN="system.mgmt.an2.${ENV}.${ROOT_DOMAIN}";
+        elif [[ $ENV	== "stg" ]]; then
+          MGMT_DOMAIN="system.mgmt.an2.${ENV}.${ROOT_DOMAIN}";
+        elif [[ $ENV	== "prd" ]]; then
+          MGMT_DOMAIN="system.mgmt.an2.${ENV}.${ROOT_DOMAIN}";
+        else
+          MGMT_DOMAIN="system.mgmt.an2.${ENV}.${ROOT_DOMAIN}";
+        fi
+      fi      
+    - >
+      if [[ $CI_PROJECT_NAME	== "fe-centralwallet" ]]; then
+        MGMT_DOMAIN="centralwallet.mgmt.${ENV}.${ROOT_DOMAIN}";
+      fi
+ 

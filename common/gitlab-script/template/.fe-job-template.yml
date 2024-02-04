@@ -1,0 +1,134 @@
+.npm-install-template:
+  resource_group: $CI_COMMIT_REF_NAME-install
+  tags:
+    - shared
+  cache:
+    - key: $CI_COMMIT_REF_NAME-node_modules
+      policy: push
+      paths:
+        - ./node_modules/
+    - key: $CI_COMMIT_REF_NAME-npm
+      policy: pull-push
+      paths:
+        - ./npm        
+  script:
+   # - aws s3 cp s3://s3-an2-shd-gitlab-artifact/.npmrc ./.npmrc
+    - npm ci
+
+# test
+.npm-install-template_test:
+  resource_group: $CI_COMMIT_REF_NAME-install_test
+  tags:
+    - shared
+  cache:
+    - key: $CI_COMMIT_REF_NAME-node_modules_test
+      policy: push
+      paths:
+        - ./node_modules/
+    - key: $CI_COMMIT_REF_NAME-npm_test
+      policy: pull-push
+      paths:
+        - ./npm        
+  script:
+   # - aws s3 cp s3://s3-an2-shd-gitlab-artifact/.npmrc ./.npmrc
+    - npm cache clean --force
+    - npm ci --verbose
+    
+.npm-lint-template:
+  resource_group: $CI_COMMIT_REF_NAME-lint
+  tags:
+    - shared
+  cache:
+    - key: $CI_COMMIT_REF_NAME-node_modules
+      policy: pull
+      paths:
+        - ./node_modules/
+  script:
+    - npm run lint:noFix
+
+.npm-unit-test-template:
+  resource_group: $CI_COMMIT_REF_NAME-unit-test
+  tags:
+    - shared
+  cache:
+    - key: $CI_COMMIT_REF_NAME-node_modules
+      policy: pull
+      paths:
+        - ./node_modules/
+  script:
+    - npm run test:unit:coverage
+
+.npm-build-template:
+  resource_group: $CI_COMMIT_REF_NAME-build
+  tags:
+    - shared
+  environment:
+    name: $ENV
+  cache:
+    - key: $CI_COMMIT_REF_NAME-node_modules
+      policy: pull
+      paths:
+        - ./node_modules/
+  script:
+    - >
+      if [[ "$IS_NEXT" == "true" ]]; then
+        ENV=dev-next
+      fi  
+    - CI=false && npm run build:$ENV
+  artifacts:
+    paths:
+      - build/
+    expire_in: 2 week
+
+.s3-deploy-template:       
+  resource_group: $CI_COMMIT_REF_NAME-deploy
+  cache: 
+    - key: $CI_COMMIT_REF_NAME-build
+      policy: pull
+      paths:
+        - ./build/
+  tags: 
+    - shared
+  environment:
+      name: $ENV
+  before_script:
+    - !reference [.aws-assume-template, before_script]
+    - !reference [.get-branch, before_script]
+    - !reference [.set-domain, before_script]
+  script:
+    - echo $CI_PIPELINE_SOURCE
+    - echo $BRANCH
+
+    - >
+      AWS_SHOT_REGION="ue2"
+
+      if [ "$AWS_REGION" == "ap-northeast-2" ]; then
+        AWS_SHOT_REGION="an2"
+      fi
+      
+      if [ "$IS_FEATURE" == "true" ]; then 
+        S3_BUCKET_NAME=s3-${AWS_SHOT_REGION}-dev-naemo-${SERVICE_NAME}-feature-${BRANCH}
+        STACK_NAME=cf-${AWS_SHOT_REGION}-dev-naemo-${SERVICE_NAME}-feature-${BRANCH}
+
+        aws cloudformation deploy \
+        --region $AWS_REGION \
+        --stack-name $STACK_NAME \
+        --template-file ./cicd/fe-deploy.yml \
+        --parameter-overrides \
+            BucketName=$S3_BUCKET_NAME \
+            S3vpce=$S3_VPCE_GW \
+            Env=$ENV 
+      fi
+    - >
+      if [[ "$IS_NEXT" == "true" ]] && [[ "$CI_COMMIT_REF_NAME" == "develop_next" ]]; then
+        S3_BUCKET_NAME="$S3_BUCKET_NAME-next"
+      fi
+    - aws s3 sync build/ s3://$S3_BUCKET_NAME --delete
+    - >
+      if [[ $CI_PIPELINE_SOURCE == "merge_request_event" ]]; then
+        echo "http://${MGMT_DOMAIN}";
+      elif [[ $PUBLIC == "Y" ]]; then
+        echo "https://${FULL_DOMAIN}";
+      else
+        echo "http://${MGMT_DOMAIN}";
+      fi

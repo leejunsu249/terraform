@@ -1,1 +1,0 @@
-FROM amazon/aws-for-fluent-bit:2.28.0

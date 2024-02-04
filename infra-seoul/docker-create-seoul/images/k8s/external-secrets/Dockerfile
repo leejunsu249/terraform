@@ -1,1 +1,0 @@
-FROM ghcr.io/external-secrets/external-secrets:v0.5.2

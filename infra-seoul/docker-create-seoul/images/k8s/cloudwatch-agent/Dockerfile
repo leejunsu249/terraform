@@ -1,1 +1,0 @@
-FROM amazon/cloudwatch-agent:1.247350.0b251780

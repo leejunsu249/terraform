@@ -1,1 +1,0 @@
-FROM k8s.gcr.io/csi-secrets-store/driver-crds:v1.2.2
